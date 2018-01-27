@@ -4,12 +4,13 @@ import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPI
 import fr.iut.iem.pokecard.data.model.Pokemon
 import io.reactivex.Observable
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 /**
@@ -27,7 +28,11 @@ class PokeAPIImpl : PokeAPI {
     }
 
     private fun initHttpClient(): OkHttpClient {
+        var logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
         return OkHttpClient.Builder()
+                .addInterceptor(logging)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .build()
@@ -38,7 +43,7 @@ class PokeAPIImpl : PokeAPI {
                 .client(httpClient)
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
 
@@ -51,10 +56,10 @@ class PokeAPIImpl : PokeAPI {
     }
 
     interface PokeAPIEndPoint {
-        @GET("")
-        fun getPokemonByID(id: Int): Observable<Pokemon>
+        @GET("test")
+        fun getPokemonByID(@Query("test") id: Int): Observable<Pokemon>
 
         @GET("")
-        fun getPokemons(from: Int, to: Int): Observable<List<Pokemon>>
+        fun getPokemons(@Query("test") from: Int, @Query("test2") to: Int): Observable<List<Pokemon>>
     }
 }

@@ -7,6 +7,6 @@ import io.reactivex.Observable
  * Created by louis on 27/01/2018.
  */
 interface PokeAPI {
-    fun getPokemonByID(id:Int) : Observable<Pokemon>
-    fun getPokemons(from:Int, to:Int) : Observable<List<Pokemon>>
+    fun getPokemonByID(id: Int): Observable<Pokemon>
+    fun getPokemons(from: Int, to: Int): Observable<List<Pokemon>>
 }
