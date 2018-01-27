@@ -15,7 +15,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "POKE_BASE_URL", "\"http://192.168.1.18:8080\""
+        }
         release {
+            buildConfigField "String", "POKE_BASE_URL", "\"http://192.168.1.18:8080\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
