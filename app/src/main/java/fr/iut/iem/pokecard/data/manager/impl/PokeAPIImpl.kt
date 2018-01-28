@@ -51,15 +51,15 @@ class PokeAPIImpl : PokeAPI {
         return pokeAPIEndPoint.getPokemonByID(id)
     }
 
-    override fun getPokemons(from: Int, to: Int): Observable<List<Pokemon>> {
-        return pokeAPIEndPoint.getPokemons(from, to)
+    override fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
+        return pokeAPIEndPoint.getPokemons(page, offset)
     }
 
     interface PokeAPIEndPoint {
         @GET("test")
         fun getPokemonByID(@Query("test") id: Int): Observable<Pokemon>
 
-        @GET("")
-        fun getPokemons(@Query("test") from: Int, @Query("test2") to: Int): Observable<List<Pokemon>>
+        @GET("pokemons")
+        fun getPokemons(@Query("page") page: Int, @Query("number") offset: Int): Observable<List<Pokemon>>
     }
 }

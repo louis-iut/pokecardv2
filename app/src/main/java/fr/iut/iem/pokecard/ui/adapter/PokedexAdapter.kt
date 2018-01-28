@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
@@ -26,7 +27,7 @@ class PokedexAdapter(
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(pokedex[position])
     }
 
     override fun getItemCount(): Int {
@@ -44,8 +45,9 @@ class PokedexAdapter(
 
     ) : RecyclerView.ViewHolder(view) {
 
-        fun bind() {
-            view.text.text = "POKEMON " + adapterPosition
+        fun bind(pokemon: Pokemon) {
+            view.pokemon_name.text = pokemon.name
+            Picasso.with(view.context).load(pokemon.image).into(view.pokemon_image)
         }
     }
 }

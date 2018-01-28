@@ -13,7 +13,7 @@ class PokemonRepository(private var pokeAPI: PokeAPI) {
         return pokeAPI.getPokemonByID(id)
     }
 
-    fun getPokemons(from: Int, to: Int): Observable<List<Pokemon>> {
-        return pokeAPI.getPokemons(from, to)
+    fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
+        return pokeAPI.getPokemons(page, offset)
     }
 }

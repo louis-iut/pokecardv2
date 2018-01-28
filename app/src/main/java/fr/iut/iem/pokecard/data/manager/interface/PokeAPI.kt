@@ -8,5 +8,5 @@ import io.reactivex.Observable
  */
 interface PokeAPI {
     fun getPokemonByID(id: Int): Observable<Pokemon>
-    fun getPokemons(from: Int, to: Int): Observable<List<Pokemon>>
+    fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>>
 }
