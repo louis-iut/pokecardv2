@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        activity_main_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {}
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     private fun managePreviousTabs() {
         val index = previousTabs.size - 1
         val lastTabPosition = previousTabs[index]
-        val lastTab = tab_layout.getTabAt(lastTabPosition)
+        val lastTab = activity_main_tab_layout.getTabAt(lastTabPosition)
         lastTab!!.select()
         previousTabs.removeAt(index) //remove new current tab from the list
         previousTabs.removeAt(index) //remove previous tabs which was added in the list because of onTabUnselected

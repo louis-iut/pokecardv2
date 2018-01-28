@@ -1,8 +1,10 @@
 package fr.iut.iem.pokecard
 
 import android.app.Application
-import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPI
-import fr.iut.iem.pokecard.data.manager.impl.PokeAPIImpl
+import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
+import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
+import fr.iut.iem.pokecard.data.manager.impl.CacheManagerImpl
+import fr.iut.iem.pokecard.data.manager.impl.PokeAPIManagerImpl
 import fr.iut.iem.pokecard.data.repository.PokemonRepository
 
 /**
@@ -18,7 +20,8 @@ class PokeCardApp : Application() {
         }
     }
 
-    private lateinit var pokeAPI: PokeAPI
+    private lateinit var pokeAPIManager: PokeAPIManager
+    private lateinit var cacheManager: CacheManager
     private lateinit var pokemonRepository: PokemonRepository
 
 
@@ -32,11 +35,12 @@ class PokeCardApp : Application() {
     }
 
     private fun initManagers() {
-        pokeAPI = PokeAPIImpl()
+        pokeAPIManager = PokeAPIManagerImpl()
+        cacheManager = CacheManagerImpl()
     }
 
     private fun initRepositories() {
-        pokemonRepository = PokemonRepository(pokeAPI)
+        pokemonRepository = PokemonRepository(pokeAPIManager, cacheManager)
     }
 
     fun getPokemonRepository() : PokemonRepository {

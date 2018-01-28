@@ -9,6 +9,7 @@ import fr.iut.iem.pokecard.ui.view.PokedexView
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -21,23 +22,13 @@ class PokedexPresenter (
 
     private var pokemonRepository : PokemonRepository = PokeCardApp.application().getPokemonRepository()
 
-    fun getPokemons() {
-        pokemonRepository.getPokemons(1, 20).subscribeOn(Schedulers.newThread())
+    fun getPokemons(page : Int, offset : Int) {
+        pokemonRepository.getPokemons(page, offset).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<List<Pokemon>> {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {}
-
-                    override fun onNext(pokemons: List<Pokemon>) {
-                        Log.e("TEST", pokemons.toString())
-                        pokedexView.updateUI(pokemons)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.e("TEST","NO", e)
-                    }
-                })
+                .subscribeBy(
+                        onNext = {pokedexView.updateUI(it)},
+                        onError = {Log.e("TEST","NO", it)}
+                )
     }
 
 }

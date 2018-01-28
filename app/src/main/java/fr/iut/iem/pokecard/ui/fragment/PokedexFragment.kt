@@ -13,6 +13,7 @@ import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
 import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.PokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
+import kotlinx.android.synthetic.main.fragment_pokedex.view.*
 import kotlinx.android.synthetic.main.fragment_user_pokemons.view.*
 
 /**
@@ -36,7 +37,8 @@ class PokedexFragment : Fragment(), PokedexView, PodedexItemListener {
 
         initRecyclerView(view)
         presenter = PokedexPresenter(context, this)
-        presenter.getPokemons()
+        presenter.getPokemons(0, 20)
+        //presenter.getPokemons(1, 20)
 
         return view
     }
@@ -47,7 +49,8 @@ class PokedexFragment : Fragment(), PokedexView, PodedexItemListener {
 
     private fun initRecyclerView(view : View) {
         adapter = PokedexAdapter(this)
-        view.recycler_view.layoutManager = LinearLayoutManager(context)
-        view.recycler_view.adapter = adapter
+        view.fragment_pokedex_recycler_view.layoutManager = LinearLayoutManager(context)
+        view.fragment_pokedex_recycler_view.adapter = adapter
+        //view.fragment_pokedex_recycler_view.addOnScrollListener(object : OnSc)
     }
 }

@@ -35,7 +35,7 @@ class PokedexAdapter(
     }
 
     fun setPokedex(pokedex : List<Pokemon>) {
-        this.pokedex = pokedex
+        this.pokedex +=  pokedex
         notifyDataSetChanged()
     }
 
@@ -46,8 +46,8 @@ class PokedexAdapter(
     ) : RecyclerView.ViewHolder(view) {
 
         fun bind(pokemon: Pokemon) {
-            view.pokemon_name.text = pokemon.name
-            Picasso.with(view.context).load(pokemon.image).into(view.pokemon_image)
+            view.item_pokemon_name.text = pokemon.name
+            Picasso.with(view.context).load(pokemon.image).into(view.item_pokemon_image)
         }
     }
 }

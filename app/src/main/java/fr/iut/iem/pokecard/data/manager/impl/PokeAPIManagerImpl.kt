@@ -1,7 +1,7 @@
 package fr.iut.iem.pokecard.data.manager.impl
 
 import fr.iut.iem.pokecard.BuildConfig
-import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPI
+import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -10,13 +10,14 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by louis on 27/01/2018.
  */
-class PokeAPIImpl : PokeAPI {
+class PokeAPIManagerImpl : PokeAPIManager {
 
     private var pokeAPIEndPoint: PokeAPIEndPoint
     private var retrofit: Retrofit
@@ -56,8 +57,8 @@ class PokeAPIImpl : PokeAPI {
     }
 
     interface PokeAPIEndPoint {
-        @GET("test")
-        fun getPokemonByID(@Query("test") id: Int): Observable<Pokemon>
+        @GET("/fr/pokemon/{id}")
+        fun getPokemonByID(@Path("id") id: Int): Observable<Pokemon>
 
         @GET("pokemons")
         fun getPokemons(@Query("page") page: Int, @Query("number") offset: Int): Observable<List<Pokemon>>
