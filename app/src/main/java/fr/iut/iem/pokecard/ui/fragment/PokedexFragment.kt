@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import fr.iut.iem.pokecard.R
+import fr.iut.iem.pokecard.data.Consts
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
 import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
@@ -23,22 +24,21 @@ class PokedexFragment : Fragment(), PokedexView, PodedexItemListener {
     override fun onClickOnPokemon() {
     }
 
-    private lateinit var presenter : PokedexPresenter
-    private lateinit var adapter : PokedexAdapter
-
     companion object {
         fun newInstance() : PokedexFragment {
             return PokedexFragment()
         }
     }
 
+    private lateinit var presenter : PokedexPresenter
+    private lateinit var adapter : PokedexAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_pokedex, container, false)
 
         initRecyclerView(view)
         presenter = PokedexPresenter(context, this)
-        presenter.getPokemons(0, 20)
-        //presenter.getPokemons(1, 20)
+        presenter.getPokemons(0, Consts.POKEMON_API_OFFSET)
 
         return view
     }

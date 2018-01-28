@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_pokemon.view.*
 /**
  * Created by louis on 28/01/2018.
  */
-class PokedexAdapter(
+class PokedexAdapter (
         private val podedexItemListener: PodedexItemListener
 ) : RecyclerView.Adapter<PokedexAdapter.PokemonViewHolder>() {
 

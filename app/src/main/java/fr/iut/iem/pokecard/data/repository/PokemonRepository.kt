@@ -11,7 +11,10 @@ import io.reactivex.functions.Function
 /**
  * Created by louis on 27/01/2018.
  */
-class PokemonRepository(private val pokeAPIManager: PokeAPIManager, private val cacheManager: CacheManager) {
+class PokemonRepository(
+        private val pokeAPIManager: PokeAPIManager,
+        private val cacheManager: CacheManager
+) {
 
     fun getPokemonByID(id: Int): Observable<Pokemon> {
         return pokeAPIManager.getPokemonByID(id)
@@ -19,9 +22,7 @@ class PokemonRepository(private val pokeAPIManager: PokeAPIManager, private val 
 
     fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
         return getPokemonsFromCache(page, offset)
-                .onErrorResumeNext(Function<Throwable, ObservableSource<List<Pokemon>>> {
-                    getPokemonsFromAPI(page, offset)
-                })
+                .onErrorResumeNext(Function { getPokemonsFromAPI(page, offset) })
     }
 
     private fun getPokemonsFromCache(page: Int, offset: Int): Observable<List<Pokemon>> {

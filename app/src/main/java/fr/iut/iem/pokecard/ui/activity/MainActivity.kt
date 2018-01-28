@@ -9,35 +9,25 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainNavigator : MainNavigator
+    private lateinit var navigator: MainNavigator
     private var previousTabs: MutableList<Int> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainNavigator = MainNavigator(this, supportFragmentManager)
-        mainNavigator.launchUserPokedexView()
+        navigator = MainNavigator(this, supportFragmentManager)
+        navigator.launchUserPokedexView()
 
         initUI()
+    }
 
-        /*var pokemonRepository = PokeCardApp.application().getPokemonRepository()
-        pokemonRepository.getPokemonByID(1)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Pokemon> {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onNext(pokemon: Pokemon) {
-                        Log.e("TEST", pokemon.toString())
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.e("TEST", "NO", e)
-                    }
-
-                    override fun onComplete() {}
-                })*/
+    override fun onBackPressed() {
+        if (previousTabs.isEmpty()) {
+            finishAffinity()
+        } else {
+            managePreviousTabs()
+        }
     }
 
     private fun initUI() {
@@ -51,25 +41,17 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        mainNavigator.launchUserPokedexView()
+                        navigator.launchUserPokedexView()
                     }
                     1 -> {
-                        mainNavigator.launchPokedexView()
+                        navigator.launchPokedexView()
                     }
                     2 -> {
-                        mainNavigator.launchUsersView()
+                        navigator.launchUsersView()
                     }
                 }
             }
         })
-    }
-
-    override fun onBackPressed() {
-        if (previousTabs.isEmpty()) {
-            finishAffinity()
-        } else {
-            managePreviousTabs()
-        }
     }
 
     private fun managePreviousTabs() {

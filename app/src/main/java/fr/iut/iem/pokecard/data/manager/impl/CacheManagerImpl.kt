@@ -2,6 +2,8 @@ package fr.iut.iem.pokecard.data.manager.impl
 
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.model.Pokemon
+import fr.iut.iem.pokecard.data.model.User
+import io.reactivex.Observable
 
 /**
  * Created by louis on 28/01/2018.
@@ -9,6 +11,15 @@ import fr.iut.iem.pokecard.data.model.Pokemon
 class CacheManagerImpl : CacheManager {
 
     private var pokemons = listOf<Pokemon>()
+    private var users = listOf<User>()
+
+    override fun getUsers():List<User> {
+        return users
+    }
+
+    override fun setUsers(users : List<User>) {
+        this.users = users
+    }
 
     override fun getPokemonByID(id: Int): Pokemon? {
         return null

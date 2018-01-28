@@ -3,21 +3,21 @@ package fr.iut.iem.pokecard.data.manager.impl
 import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
+import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by louis on 27/01/2018.
  */
 class PokeAPIManagerImpl : PokeAPIManager {
+
 
     private var pokeAPIEndPoint: PokeAPIEndPoint
     private var retrofit: Retrofit
@@ -26,6 +26,26 @@ class PokeAPIManagerImpl : PokeAPIManager {
     init {
         retrofit = initRetrofit(initHttpClient())
         pokeAPIEndPoint = retrofit.create(PokeAPIEndPoint::class.java)
+    }
+
+    override fun signUp(user: User): Observable<User> {
+        return pokeAPIEndPoint.signUp(user)
+    }
+
+    override fun login(user: User): Observable<User> {
+        return pokeAPIEndPoint.login(user)
+    }
+
+    override fun getUsers(): Observable<List<User>> {
+        return pokeAPIEndPoint.getUsers()
+    }
+
+    override fun getPokemonByID(id: Int): Observable<Pokemon> {
+        return pokeAPIEndPoint.getPokemonByID(id)
+    }
+
+    override fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
+        return pokeAPIEndPoint.getPokemons(page, offset)
     }
 
     private fun initHttpClient(): OkHttpClient {
@@ -48,16 +68,17 @@ class PokeAPIManagerImpl : PokeAPIManager {
                 .build()
     }
 
-    override fun getPokemonByID(id: Int): Observable<Pokemon> {
-        return pokeAPIEndPoint.getPokemonByID(id)
-    }
-
-    override fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
-        return pokeAPIEndPoint.getPokemons(page, offset)
-    }
-
     interface PokeAPIEndPoint {
-        @GET("/fr/pokemon/{id}")
+        @POST("signup")
+        fun signUp(@Body user: User): Observable<User>
+
+        @POST("login")
+        fun login(@Body user: User): Observable<User>
+
+        @GET("users")
+        fun getUsers(): Observable<List<User>>
+
+        @GET("fr/pokemon/{id}")
         fun getPokemonByID(@Path("id") id: Int): Observable<Pokemon>
 
         @GET("pokemons")
