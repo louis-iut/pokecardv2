@@ -12,6 +12,15 @@ class CacheManagerImpl : CacheManager {
 
     private var pokemons = listOf<Pokemon>()
     private var users = listOf<User>()
+    private var currentUser : User? = null
+
+    override fun getCurrentUser(): User? {
+        return currentUser
+    }
+
+    override fun setCurrentUser(user: User) {
+        currentUser = user
+    }
 
     override fun getUsers():List<User> {
         return users

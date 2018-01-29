@@ -28,10 +28,10 @@ class SignUpNavigator(private val context: Context, private val fragmentManager:
         currentFragment = SIGN_UP_FRAGMENT
     }
 
-    fun launchWelcomeFragment() {
+    fun launchWelcomeFragment(facebookId : String) {
         fragmentManager.beginTransaction()
                 .addToBackStack("welcome")
-                .replace(R.id.activity_sign_up_frame_layout, WelcomeFragment.newInstance())
+                .replace(R.id.activity_sign_up_frame_layout, WelcomeFragment.newInstance(facebookId))
                 .commit()
 
         currentFragment = WELCOME_FRAGMENT

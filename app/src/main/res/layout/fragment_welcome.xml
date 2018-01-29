@@ -5,7 +5,17 @@
 
     <EditText
         android:id="@+id/fragment_welcome_pseudo_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:hint="pseudo..."/>
+
+    <Button
+        android:id="@+id/fragment_welcome_validate_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="Valider"/>
 
 </RelativeLayout>

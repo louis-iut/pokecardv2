@@ -1,5 +1,8 @@
 package fr.iut.iem.pokecard.data.manager.impl
 
+import android.util.Log
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
@@ -48,8 +51,12 @@ class PokeAPIManagerImpl : PokeAPIManager {
         return pokeAPIEndPoint.getPokemons(page, offset)
     }
 
+    override fun getUserPokemons(id: Int): Observable<List<Pokemon>> {
+        return pokeAPIEndPoint.getUserPokemons(id)
+    }
+
     private fun initHttpClient(): OkHttpClient {
-        var logging = HttpLoggingInterceptor()
+        var logging = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.i("pokeAPI", message) })
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         return OkHttpClient.Builder()
@@ -83,5 +90,8 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
         @GET("pokemons")
         fun getPokemons(@Query("page") page: Int, @Query("number") offset: Int): Observable<List<Pokemon>>
+
+        @GET("/user/{userID}/pokemons")
+        fun getUserPokemons(@Path("userID") id: Int): Observable<List<Pokemon>>
     }
 }

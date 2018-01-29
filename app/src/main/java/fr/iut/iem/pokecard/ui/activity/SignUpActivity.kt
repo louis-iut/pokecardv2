@@ -18,7 +18,11 @@ class SignUpActivity : AppCompatActivity(), SignUpNavigatorListener {
         navigator.launchSignUpFragment()
     }
 
-    override fun launchWelcomeFragment() {
-        navigator.launchWelcomeFragment()
+    override fun launchWelcomeFragment(facebookId : String) {
+        navigator.launchWelcomeFragment(facebookId)
+    }
+
+    override fun launchMainActivity() {
+        navigator.launchMainActivity()
     }
 }

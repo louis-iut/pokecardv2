@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.adapter.UserListAdapter
+import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
 import fr.iut.iem.pokecard.ui.presenter.UsersPresenter
+import fr.iut.iem.pokecard.ui.presenter.WelcomePresenter
 import fr.iut.iem.pokecard.ui.view.UsersView
 import kotlinx.android.synthetic.main.fragment_users.view.*
 
@@ -43,7 +45,7 @@ class UsersFragment : Fragment(), UsersView {
         adapter.setUserList(users)
     }
 
-    fun initRecyclerView(view: View) {
+    private fun initRecyclerView(view: View) {
         adapter = UserListAdapter()
         view.fragment_users_recycler_view.layoutManager = LinearLayoutManager(context)
         view.fragment_users_recycler_view.adapter = adapter

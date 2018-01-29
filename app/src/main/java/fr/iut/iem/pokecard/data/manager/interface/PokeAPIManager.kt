@@ -10,9 +10,9 @@ import io.reactivex.Observable
 interface PokeAPIManager {
 
     fun getUsers(): Observable<List<User>>
-
     fun getPokemonByID(id: Int): Observable<Pokemon>
     fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>>
     fun login(user: User): Observable<User>
     fun signUp(user: User): Observable<User>
+    fun getUserPokemons(id: Int): Observable<List<Pokemon>>
 }

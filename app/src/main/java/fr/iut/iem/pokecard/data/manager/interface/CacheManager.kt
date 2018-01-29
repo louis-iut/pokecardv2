@@ -9,6 +9,9 @@ import io.reactivex.Observable
  */
 interface CacheManager {
 
+    fun getCurrentUser(): User?
+    fun setCurrentUser(user: User)
+
     fun getUsers(): List<User>
     fun setUsers(users: List<User>)
 

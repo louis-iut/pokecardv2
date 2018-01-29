@@ -14,23 +14,19 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by louis on 28/01/2018.
  */
-class SignUpPresenter(
+class WelcomePresenter (
         private val context: Context?,
-        private val signUpView: SignUpView,
         private val signUpNavigatorListener: SignUpNavigatorListener
 ) {
     private var userRepository : UserRepository = PokeCardApp.application().getUserRepository()
 
-    fun login(facebookId : String) {
-        userRepository.login(User(null, facebookId, null))
+    fun signUp(user: User) {
+        userRepository.signUp(user)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = { signUpNavigatorListener.launchMainActivity() },
-                        onError = {
-                            Log.e("ERREUR CO", " ! ", it)
-                            signUpNavigatorListener.launchWelcomeFragment(facebookId)
-                        }
+                        onError = { Log.e("erreur ", "erreur", it) }
                 )
     }
 }

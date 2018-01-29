@@ -4,6 +4,7 @@ import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
+import io.reactivex.functions.Action
 import io.reactivex.functions.Function
 
 /**
@@ -15,15 +16,22 @@ class UserRepository(
 ) {
 
     fun signUp(user: User): Observable<User> {
-        return pokeAPIManager.signUp(user)
+        return pokeAPIManager.signUp(user).doOnNext({ setCurrentUserOnCache(user) })
     }
 
     fun login(user: User): Observable<User> {
-        return pokeAPIManager.login(user)//.onErrorResumeNext(Function { signUp(user) })
+        return pokeAPIManager.login(user).doOnNext({ setCurrentUserOnCache(user) })
     }
 
     fun getUsers(): Observable<List<User>> {
         return getUsersFromCache().onErrorResumeNext(Function { getUsersFromApi() })
+    }
+
+    fun getCurrentUser(): Observable<User> {
+        var currentUser: User? = cacheManager.getCurrentUser() ?:
+                return Observable.error(Throwable("no current user"))
+
+        return Observable.just(currentUser)
     }
 
     private fun getUsersFromCache(): Observable<List<User>> {
@@ -37,5 +45,9 @@ class UserRepository(
 
     private fun getUsersFromApi(): Observable<List<User>> {
         return pokeAPIManager.getUsers()
+    }
+
+    private fun setCurrentUserOnCache(user: User) {
+        cacheManager.setCurrentUser(user)
     }
 }

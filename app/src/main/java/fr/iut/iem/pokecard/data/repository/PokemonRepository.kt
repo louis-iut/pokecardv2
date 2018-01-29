@@ -4,6 +4,7 @@ import android.os.Build.VERSION_CODES.O
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
+import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.functions.Function
@@ -23,6 +24,10 @@ class PokemonRepository(
     fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
         return getPokemonsFromCache(page, offset)
                 .onErrorResumeNext(Function { getPokemonsFromAPI(page, offset) })
+    }
+
+    fun getUserPokemons(id: Int): Observable<List<Pokemon>> {
+        return pokeAPIManager.getUserPokemons(id)
     }
 
     private fun getPokemonsFromCache(page: Int, offset: Int): Observable<List<Pokemon>> {

@@ -14,7 +14,6 @@ import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
 import fr.iut.iem.pokecard.ui.presenter.SignUpPresenter
 import fr.iut.iem.pokecard.ui.view.SignUpView
-import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
 /**
@@ -55,11 +54,9 @@ class SignUpFragment : Fragment(), SignUpView {
             }
 
             override fun onCancel() {
-                print(":(")
             }
 
             override fun onError(error: FacebookException?) {
-                print(":(")
             }
         })
     }
