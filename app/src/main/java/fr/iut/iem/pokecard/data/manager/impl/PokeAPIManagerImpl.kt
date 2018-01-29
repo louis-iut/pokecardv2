@@ -91,7 +91,7 @@ class PokeAPIManagerImpl : PokeAPIManager {
         @GET("pokemons")
         fun getPokemons(@Query("page") page: Int, @Query("number") offset: Int): Observable<List<Pokemon>>
 
-        @GET("/user/{userID}/pokemons")
+        @GET("user/{userID}/pokemons")
         fun getUserPokemons(@Path("userID") id: Int): Observable<List<Pokemon>>
     }
 }

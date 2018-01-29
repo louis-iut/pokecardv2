@@ -16,11 +16,11 @@ class UserRepository(
 ) {
 
     fun signUp(user: User): Observable<User> {
-        return pokeAPIManager.signUp(user).doOnNext({ setCurrentUserOnCache(user) })
+        return pokeAPIManager.signUp(user).doOnNext({ setCurrentUserOnCache(it) })
     }
 
     fun login(user: User): Observable<User> {
-        return pokeAPIManager.login(user).doOnNext({ setCurrentUserOnCache(user) })
+        return pokeAPIManager.login(user).doOnNext({ setCurrentUserOnCache(it) })
     }
 
     fun getUsers(): Observable<List<User>> {

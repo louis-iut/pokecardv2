@@ -47,7 +47,7 @@ class UserPokedexFragment : Fragment(), PokedexView, PodedexItemListener {
     }
 
     private fun initRecyclerView(view : View) {
-        var adapter = PokedexAdapter(this)
+        adapter = PokedexAdapter(this)
         view.fragment_user_pokedex_recycler_view.layoutManager = LinearLayoutManager(context)
         view.fragment_user_pokedex_recycler_view.adapter = adapter
     }

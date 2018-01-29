@@ -22,7 +22,13 @@ class UserPokedexPresenter(private var pokedexView: PokedexView) {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onNext = { if (it.id != null) { getUserPokemons(it.id)} },
+                        onNext = {
+                            if (it.id != null) {
+                                getUserPokemons(it.id)
+                            } else {
+                                Log.e("TEST","NOOOOOOOOOOOOOO " + it)
+                            }
+                        },
                         onError = { Log.e("TEST","NO", it)}
                 )
     }
