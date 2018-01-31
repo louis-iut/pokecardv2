@@ -76,10 +76,10 @@ class PokeAPIManagerImpl : PokeAPIManager {
     }
 
     interface PokeAPIEndPoint {
-        @POST("signup")
+        @POST("sign/up")
         fun signUp(@Body user: User): Observable<User>
 
-        @POST("login")
+        @POST("sign/in")
         fun login(@Body user: User): Observable<User>
 
         @GET("users")

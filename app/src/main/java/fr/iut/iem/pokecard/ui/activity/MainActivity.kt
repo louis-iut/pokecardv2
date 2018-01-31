@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import fr.iut.iem.pokecard.R
+import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
+import fr.iut.iem.pokecard.ui.listener.UserItemListener
 import fr.iut.iem.pokecard.ui.navigator.MainNavigator
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UserItemListener, PodedexItemListener {
 
     private lateinit var navigator: MainNavigator
     private var previousTabs: MutableList<Int> = arrayListOf()
@@ -20,6 +22,18 @@ class MainActivity : AppCompatActivity() {
         navigator.launchUserPokedexView()
 
         initUI()
+    }
+
+    override fun onClickOnUserItem() {
+        TODO("not implemented")
+    }
+
+    override fun onClickOnGiftButton() {
+        navigator.launchGiftView()
+    }
+
+    override fun onClickOnPokemon() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onBackPressed() {

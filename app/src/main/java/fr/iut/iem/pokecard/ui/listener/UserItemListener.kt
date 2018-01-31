@@ -5,4 +5,5 @@ package fr.iut.iem.pokecard.ui.listener
  */
 interface UserItemListener {
     fun onClickOnUserItem()
+    fun onClickOnGiftButton()
 }
