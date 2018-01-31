@@ -3,6 +3,7 @@ package fr.iut.iem.pokecard.ui.presenter
 import android.content.Context
 import android.util.Log
 import fr.iut.iem.pokecard.PokeCardApp
+import fr.iut.iem.pokecard.data.Consts
 import fr.iut.iem.pokecard.data.repository.PokemonRepository
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,13 +19,17 @@ class PokedexPresenter (
 ) {
 
     private var pokemonRepository : PokemonRepository = PokeCardApp.application().getPokemonRepository()
+    private var page = 0
 
-    fun getPokemons(page : Int, offset : Int) {
-        pokemonRepository.getPokemons(page, offset)
+    fun getPokemons() {
+        pokemonRepository.getPokemons(page, Consts.POKEMON_API_OFFSET)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onNext = {pokedexView.updateUI(it)},
+                        onNext = {
+                            page++
+                            pokedexView.updateUI(it)
+                        },
                         onError = {Log.e("TEST","NO", it)}
                 )
     }

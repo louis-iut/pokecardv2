@@ -3,19 +3,17 @@ package fr.iut.iem.pokecard.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import fr.iut.iem.pokecard.R
-import fr.iut.iem.pokecard.data.Consts
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
 import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.PokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_pokedex.view.*
-import kotlinx.android.synthetic.main.fragment_user_pokemons.view.*
+import kotlinx.android.synthetic.main.misc_pokedex.view.*
 
 /**
  * Created by louis on 27/01/2018.
@@ -38,7 +36,7 @@ class PokedexFragment : Fragment(), PokedexView, PodedexItemListener {
 
         initRecyclerView(view)
         presenter = PokedexPresenter(context, this)
-        presenter.getPokemons(0, Consts.POKEMON_API_OFFSET)
+        presenter.getPokemons()
 
         return view
     }
@@ -49,8 +47,8 @@ class PokedexFragment : Fragment(), PokedexView, PodedexItemListener {
 
     private fun initRecyclerView(view : View) {
         adapter = PokedexAdapter(this)
-        view.fragment_pokedex_recycler_view.layoutManager = LinearLayoutManager(context)
-        view.fragment_pokedex_recycler_view.adapter = adapter
-        //view.fragment_pokedex_recycler_view.addOnScrollListener(object : OnSc)
+        view.misc_pokedex_recycler_view.layoutManager = LinearLayoutManager(context)
+        view.misc_pokedex_recycler_view.adapter = adapter
+        view.fragment_pokedex_load_more_button.setOnClickListener({ presenter.getPokemons() })
     }
 }
