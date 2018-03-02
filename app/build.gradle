@@ -16,7 +16,7 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "POKE_BASE_URL", "\"http://172.20.10.9:8888/web/index.php/\""
+            buildConfigField "String", "POKE_BASE_URL", "\"http://10.0.2.2:8888/web/index.php/\""
         }
         release {
             buildConfigField "String", "POKE_BASE_URL", "\"http://192.168.1.12/index.php/\""

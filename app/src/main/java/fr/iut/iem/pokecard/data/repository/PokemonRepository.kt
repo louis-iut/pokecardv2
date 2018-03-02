@@ -1,12 +1,9 @@
 package fr.iut.iem.pokecard.data.repository
 
-import android.os.Build.VERSION_CODES.O
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
-import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.functions.Function
 
 /**
@@ -27,11 +24,11 @@ class PokemonRepository(
     }
 
     fun getUserPokemons(id: Int): Observable<List<Pokemon>> {
-        return pokeAPIManager.getUserPokemons(id)
+        return getUserPokemonFromCache().onErrorResumeNext(Function { getUserPokemonsFromApi(id) })
     }
 
     private fun getPokemonsFromCache(page: Int, offset: Int): Observable<List<Pokemon>> {
-        var pokemons: List<Pokemon> = cacheManager.getPokemons(page, offset)
+        val pokemons = cacheManager.getPokemons(page, offset)
                 ?: return Observable.error(Throwable("pokedex empty"))
 
         return Observable.fromArray(pokemons)
@@ -43,5 +40,20 @@ class PokemonRepository(
 
     private fun setPokemonsOnCache(pokemons: List<Pokemon>) {
         cacheManager.setPokemons(pokemons)
+    }
+
+    private fun getUserPokemonFromCache(): Observable<List<Pokemon>> {
+        val pokemons = cacheManager.getUserPokemons()
+                ?: return Observable.error(Throwable("user pokedex empty"))
+
+        return  Observable.fromArray(pokemons)
+    }
+
+    private fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
+        return pokeAPIManager.getUserPokemons(id).doOnNext { t -> setUserPokemonOnCache(t)}
+    }
+
+    private fun setUserPokemonOnCache(pokemons: List<Pokemon>) {
+        cacheManager.setUserPokemons(pokemons)
     }
 }

@@ -20,4 +20,7 @@ interface CacheManager {
 
     fun getPokemons(page: Int, offset: Int): List<Pokemon>?
     fun setPokemons(pokemons : List<Pokemon>)
+
+    fun getUserPokemons(): List<Pokemon>?
+    fun setUserPokemons(pokemons: List<Pokemon>)
 }

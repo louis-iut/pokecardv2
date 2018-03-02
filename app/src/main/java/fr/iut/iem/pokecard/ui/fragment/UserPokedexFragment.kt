@@ -12,13 +12,12 @@ import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
 import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.UserPokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
-import kotlinx.android.synthetic.main.fragment_user_pokemons.view.*
 import kotlinx.android.synthetic.main.misc_pokedex.view.*
 
 /**
  * Created by louis on 28/01/2018.
  */
-class UserPokedexFragment : Fragment(), PokedexView, PodedexItemListener {
+class UserPokedexFragment : Fragment(), PokedexView {
 
     companion object {
         fun newInstance() : UserPokedexFragment {
@@ -43,12 +42,8 @@ class UserPokedexFragment : Fragment(), PokedexView, PodedexItemListener {
         adapter.setPokedex(pokemons)
     }
 
-    override fun onClickOnPokemon() {
-
-    }
-
     private fun initRecyclerView(view : View) {
-        adapter = PokedexAdapter(this)
+        adapter = PokedexAdapter(activity as PodedexItemListener)
         view.misc_pokedex_recycler_view.layoutManager = LinearLayoutManager(context)
         view.misc_pokedex_recycler_view.adapter = adapter
     }
