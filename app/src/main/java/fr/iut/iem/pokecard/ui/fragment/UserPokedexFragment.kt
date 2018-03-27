@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
-import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
+import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.UserPokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_user_pokemons.view.*
@@ -43,7 +43,7 @@ class UserPokedexFragment : Fragment(), PokedexView {
     }
 
     private fun initRecyclerView(view : View) {
-        adapter = PokedexAdapter(activity as PodedexItemListener)
+        adapter = PokedexAdapter(activity as PokedexItemListener)
         view.fragment_user_pokemons_list.layoutManager = LinearLayoutManager(context)
         view.fragment_user_pokemons_list.adapter = adapter
     }

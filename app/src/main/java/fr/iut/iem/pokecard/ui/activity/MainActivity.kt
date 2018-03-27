@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import fr.iut.iem.pokecard.R
-import fr.iut.iem.pokecard.ui.listener.PodedexItemListener
+import fr.iut.iem.pokecard.ui.listener.MainNavigatorListener
+import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.listener.UserItemListener
 import fr.iut.iem.pokecard.ui.navigator.MainNavigator
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), UserItemListener, PodedexItemListener {
-
+class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener, MainNavigatorListener {
     private lateinit var navigator: MainNavigator
     private var previousTabs: MutableList<Int> = arrayListOf()
 
@@ -75,5 +75,25 @@ class MainActivity : AppCompatActivity(), UserItemListener, PodedexItemListener 
         lastTab!!.select()
         previousTabs.removeAt(index) //remove new current tab from the list
         previousTabs.removeAt(index) //remove previous tabs which was added in the list because of onTabUnselected
+    }
+
+    override fun launchPokedexView() {
+        navigator.launchPokedexView()
+    }
+
+    override fun launchUserPokedexView() {
+        navigator.launchUserPokedexView()
+    }
+
+    override fun launchUsersView() {
+        navigator.launchUsersView()
+    }
+
+    override fun launchGiftView() {
+        navigator.launchGiftView()
+    }
+
+    override fun launchPokemonDetails() {
+        navigator.launchPokemonDetails()
     }
 }
