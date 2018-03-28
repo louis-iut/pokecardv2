@@ -8,5 +8,5 @@ interface MainNavigatorListener {
     fun launchUserPokedexView()
     fun launchUsersView()
     fun launchGiftView()
-    fun launchPokemonDetails()
+    fun launchPokemonDetails(pokemonID : Int)
 }

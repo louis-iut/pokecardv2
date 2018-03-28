@@ -54,10 +54,10 @@ class MainNavigator(private var context : Context, private var fragmentManager: 
         currentFragment = GIFT_FRAGMENT
     }
 
-    fun launchPokemonDetails() {
+    fun launchPokemonDetails(pokemonID: Int) {
         fragmentManager.beginTransaction()
                 .addToBackStack("pokemon_details")
-                .replace(R.id.activity_main_frame_layout, PokemonDetailsFragment.newInstance())
+                .replace(R.id.activity_main_frame_layout, PokemonDetailsFragment.newInstance(pokemonID))
                 .commit()
 
         currentFragment = POKEMON_DETAILS

@@ -47,7 +47,7 @@ class PokedexAdapter (
 
         fun bind(pokemon: Pokemon) {
             view.item_pokemon_name.text = pokemon.name
-            view.setOnClickListener { pokedexItemListener.onClickOnPokemon() }
+            view.setOnClickListener { pokedexItemListener.onClickOnPokemon(pokemon.id) }
             Picasso.with(view.context).load(pokemon.image).into(view.item_pokemon_image)
         }
     }

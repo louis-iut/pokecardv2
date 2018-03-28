@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import fr.iut.iem.pokecard.PokeCardApp
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
@@ -50,7 +51,7 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
         view.fragment_pokedex_load_more_button.setOnClickListener({ presenter.getPokemons() })
     }
 
-    override fun onClickOnPokemon() {
-        (this.activity as MainNavigatorListener).launchPokemonDetails()
+    override fun onClickOnPokemon(id : Int) {
+        (this.activity as MainNavigatorListener).launchPokemonDetails(id)
     }
 }

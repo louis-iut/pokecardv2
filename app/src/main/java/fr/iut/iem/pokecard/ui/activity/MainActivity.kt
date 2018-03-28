@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
         navigator.launchGiftView()
     }
 
-    override fun onClickOnPokemon() {
+    override fun onClickOnPokemon(id: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
         navigator.launchGiftView()
     }
 
-    override fun launchPokemonDetails() {
-        navigator.launchPokemonDetails()
+    override fun launchPokemonDetails(pokemonID: Int) {
+        navigator.launchPokemonDetails(pokemonID)
     }
 }
