@@ -9,10 +9,12 @@ import fr.iut.iem.pokecard.data.model.User
  */
 class CacheManagerImpl : CacheManager {
 
-    private var pokemons = listOf<Pokemon>()
+    private var pokemons : Map<Int, Pokemon> = HashMap()
     private var userPokemons = listOf<Pokemon>()
     private var users = listOf<User>()
     private var currentUser : User? = null
+
+
 
     override fun getCurrentUser(): User? {
         return currentUser
@@ -30,8 +32,8 @@ class CacheManagerImpl : CacheManager {
         this.users = users
     }
 
-    override fun getPokemonByID(id: Int): Pokemon? {
-        return null
+    override fun getPokemon(id: Int): Pokemon? {
+        return pokemons[id]
     }
 
     override fun setPokemon(pokemon: Pokemon) {
@@ -39,19 +41,26 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun getPokemons(page: Int, offset: Int): List<Pokemon>? {
-        val min = page*offset
+        val min = page*offset + 1
         val max = (page+1)*offset-1
 
         if (max > pokemons.size-1) {
             return null
         }
+        var list = listOf<Pokemon>()
 
-        return pokemons.subList(min, max)
+        for (i in min..max) {
+            if(pokemons.containsKey(i)) {
+            list += pokemons[i]!!
+            }
+        }
+
+        return list.sortedBy { pokemon: Pokemon -> pokemon.id }
     }
 
     override fun setPokemons(pokemons: List<Pokemon>) {
-        this.pokemons += pokemons
-        this.pokemons = this.pokemons.distinct().sortedBy { pokemon: Pokemon -> pokemon.id }
+       // pokemons.add
+        this.pokemons = pokemons.associateBy({it.id}, {it})
     }
 
     override fun getUserPokemons(): List<Pokemon>? {
@@ -60,6 +69,6 @@ class CacheManagerImpl : CacheManager {
 
     override fun setUserPokemons(pokemons: List<Pokemon>) {
         this.userPokemons += pokemons
-        this.userPokemons = this.pokemons.distinct().sortedBy { pokemon: Pokemon -> pokemon.id }
+       // this.userPokemons = this.pokemons.distinct().sortedBy { pokemon: Pokemon -> pokemon.id }
     }
 }

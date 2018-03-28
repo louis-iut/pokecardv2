@@ -7,5 +7,5 @@ import fr.iut.iem.pokecard.data.model.PokemonDetails
  * Created by QuentinGenevois on 28/03/2018.
  */
 interface PokemonDetailsView {
-    fun updateUI(pokemon : PokemonDetails)
+    fun updateUI(pokemon: Pokemon, pokemonDetails : PokemonDetails)
 }

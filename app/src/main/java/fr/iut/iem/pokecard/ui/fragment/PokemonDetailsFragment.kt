@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import fr.iut.iem.pokecard.R
+import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.PokemonDetails
 import fr.iut.iem.pokecard.ui.presenter.PokemonDetailsPresenter
 import fr.iut.iem.pokecard.ui.view.PokemonDetailsView
@@ -38,8 +39,10 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         return view
     }
 
-    override fun updateUI(pokemonDetails: PokemonDetails) {
-        Log.d("tag", pokemonDetails.toString())
+    override fun updateUI(pokemon: Pokemon, pokemonDetails: PokemonDetails) {
+        Log.d("tag", pokemonDetails.description)
+        Log.d("tag", pokemon.name)
+
     }
 
 }

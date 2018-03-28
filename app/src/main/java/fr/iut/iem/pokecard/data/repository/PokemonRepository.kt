@@ -14,13 +14,20 @@ class PokemonRepository(
         private val pokeAPIManager: PokeAPIManager,
         private val cacheManager: CacheManager
 ) {
-    fun getPokemonDetailsByID(id: Int): Observable<PokemonDetails> {
+    fun getPokemonDetails(id: Int): Observable<PokemonDetails> {
         return pokeAPIManager.getPokemonDetailsByID(id)
     }
 
     fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
         return getPokemonsFromCache(page, offset)
                 .onErrorResumeNext(Function { getPokemonsFromAPI(page, offset) })
+    }
+
+    fun getPokemon(id: Int): Observable<Pokemon> {
+        val pokemon = cacheManager.getPokemon(id)
+                        ?: return Observable.error(Throwable("pokedex empty"))
+
+        return Observable.just(pokemon)
     }
 
     fun getUserPokemons(id: Int): Observable<List<Pokemon>> {
