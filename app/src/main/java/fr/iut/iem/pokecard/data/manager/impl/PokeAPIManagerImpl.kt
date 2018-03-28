@@ -62,8 +62,8 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
         return OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build()
     }
 
