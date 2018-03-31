@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
+import fr.iut.iem.pokecard.data.model.PokemonDetails
 import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -43,8 +44,8 @@ class PokeAPIManagerImpl : PokeAPIManager {
         return pokeAPIEndPoint.getUsers()
     }
 
-    override fun getPokemonByID(id: Int): Observable<Pokemon> {
-        return pokeAPIEndPoint.getPokemonByID(id)
+    override fun getPokemonDetailsByID(id: Int): Observable<PokemonDetails> {
+        return pokeAPIEndPoint.getPokemonDetailsByID(id)
     }
 
     override fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
@@ -61,8 +62,8 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
         return OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build()
     }
 
@@ -86,7 +87,7 @@ class PokeAPIManagerImpl : PokeAPIManager {
         fun getUsers(): Observable<List<User>>
 
         @GET("fr/pokemon/{id}")
-        fun getPokemonByID(@Path("id") id: Int): Observable<Pokemon>
+        fun getPokemonDetailsByID(@Path("id") id: Int): Observable<PokemonDetails>
 
         @GET("pokemons")
         fun getPokemons(@Query("page") page: Int, @Query("number") offset: Int): Observable<List<Pokemon>>

@@ -3,6 +3,7 @@ package fr.iut.iem.pokecard.data.repository
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
+import fr.iut.iem.pokecard.data.model.PokemonDetails
 import io.reactivex.Observable
 import io.reactivex.functions.Function
 
@@ -13,14 +14,20 @@ class PokemonRepository(
         private val pokeAPIManager: PokeAPIManager,
         private val cacheManager: CacheManager
 ) {
-
-    fun getPokemonByID(id: Int): Observable<Pokemon> {
-        return pokeAPIManager.getPokemonByID(id)
+    fun getPokemonDetails(id: Int): Observable<PokemonDetails> {
+        return pokeAPIManager.getPokemonDetailsByID(id)
     }
 
     fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
         return getPokemonsFromCache(page, offset)
                 .onErrorResumeNext(Function { getPokemonsFromAPI(page, offset) })
+    }
+
+    fun getPokemon(id: Int): Observable<Pokemon> {
+        val pokemon = cacheManager.getPokemon(id)
+                        ?: return Observable.error(Throwable("pokedex empty"))
+
+        return Observable.just(pokemon)
     }
 
     fun getUserPokemons(id: Int): Observable<List<Pokemon>> {

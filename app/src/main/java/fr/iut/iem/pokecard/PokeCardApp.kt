@@ -45,6 +45,10 @@ class PokeCardApp : Application() {
         userRepository = UserRepository(pokeAPIManager, cacheManager)
     }
 
+    fun getCacheManager() : CacheManager {
+        return cacheManager
+    }
+
     fun getPokemonRepository() : PokemonRepository {
         return pokemonRepository
     }

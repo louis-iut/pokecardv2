@@ -15,7 +15,7 @@ interface CacheManager {
     fun getUsers(): List<User>
     fun setUsers(users: List<User>)
 
-    fun getPokemonByID(id: Int):Pokemon?
+    fun getPokemon(id: Int):Pokemon?
     fun setPokemon(pokemon: Pokemon)
 
     fun getPokemons(page: Int, offset: Int): List<Pokemon>?
