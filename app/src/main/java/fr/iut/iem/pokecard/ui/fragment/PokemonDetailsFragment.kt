@@ -46,14 +46,11 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
 
     override fun updateUI(pokemon: Pokemon, pokemonDetails: PokemonDetails) {
 
-        Log.d("tag", pokemonDetails.description)
-        Log.d("tag", pokemon.name)
-
         val view = this.view!!
 
         view.fragment_details_loader.visibility = View.GONE
 
-        view.fragment_details_name.text = pokemon.name
+        view.fragment_details_name.text = pokemon.name.capitalize()
         view.fragment_details_description.text = pokemonDetails.description
         Picasso.with(context).load(pokemon.image).into(view.fragment_details_image)
 
