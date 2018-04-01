@@ -3,6 +3,7 @@ package fr.iut.iem.pokecard.ui.navigator
 import android.content.Context
 import android.support.v4.app.FragmentManager
 import fr.iut.iem.pokecard.R
+import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.fragment.*
 
 /**
@@ -45,10 +46,10 @@ class MainNavigator(private var context : Context, private var fragmentManager: 
         currentFragment = USERS_FRAGMENT
     }
 
-    fun launchGiftView() {
+    fun launchGiftView(user: User) {
         fragmentManager.beginTransaction()
                 .addToBackStack("gift")
-                .replace(R.id.activity_main_frame_layout, GiftFragment.newInstance())
+                .replace(R.id.activity_main_frame_layout, GiftFragment.newInstance(user))
                 .commit()
 
         currentFragment = GIFT_FRAGMENT
