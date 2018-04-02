@@ -16,4 +16,5 @@ interface PokeAPIManager {
     fun login(user: User): Observable<User>
     fun signUp(user: User): Observable<User>
     fun getUserPokemons(id: Int): Observable<List<Pokemon>>
+    fun sendGift(currentUserId: Int, userId: Int, pokemonId: Int): Observable<String>
 }

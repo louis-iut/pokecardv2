@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit
  */
 class PokeAPIManagerImpl : PokeAPIManager {
 
-
     private var pokeAPIEndPoint: PokeAPIEndPoint
     private var retrofit: Retrofit
     private var baseUrl: String = BuildConfig.POKE_BASE_URL
@@ -54,6 +53,10 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
     override fun getUserPokemons(id: Int): Observable<List<Pokemon>> {
         return pokeAPIEndPoint.getUserPokemons(id)
+    }
+
+    override fun sendGift(currentUserId: Int, userId: Int, pokemonId: Int): Observable<String> {
+        return pokeAPIEndPoint.sendGift(currentUserId, userId, pokemonId)
     }
 
     private fun initHttpClient(): OkHttpClient {
@@ -94,5 +97,10 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
         @GET("user/{userID}/pokemons")
         fun getUserPokemons(@Path("userID") id: Int): Observable<List<Pokemon>>
+
+        @POST("gift")
+        fun sendGift(@Field("current_user") currentUserId: Int,
+                     @Field("user_id") id: Int,
+                     @Field("pokemon_id") pokemonId: Int)
     }
 }

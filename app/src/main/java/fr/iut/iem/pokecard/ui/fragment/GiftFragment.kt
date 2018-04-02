@@ -13,10 +13,8 @@ import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
 import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.GiftPresenter
-import fr.iut.iem.pokecard.ui.presenter.PokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_gift.view.*
-import kotlinx.android.synthetic.main.fragment_pokedex.view.*
 
 /**
  * Created by louis on 31/01/2018.
