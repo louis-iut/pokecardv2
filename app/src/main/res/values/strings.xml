@@ -2,4 +2,7 @@
     <string name="app_name">Poke Card</string>
     <string name="facebook_app_id">338272359985066</string>
     <string name="fb_login_protocol_scheme">fb338272359985066</string>
+
+    <string name="fragment_gift_toolbar_title">Offrir un Pokémon</string>
+    <string name="fragment_gift_information">Quel Pokemon voulez-vous envoyer à %1$s ?</string>
 </resources>
