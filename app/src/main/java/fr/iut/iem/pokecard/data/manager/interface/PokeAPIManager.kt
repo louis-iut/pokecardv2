@@ -1,5 +1,6 @@
 package fr.iut.iem.pokecard.data.manager.`interface`
 
+import fr.iut.iem.pokecard.data.manager.impl.GiftParameters
 import fr.iut.iem.pokecard.data.model.Message
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.PokemonDetails
@@ -18,4 +19,5 @@ interface PokeAPIManager {
     fun login(user: User): Observable<User>
     fun signUp(user: User): Observable<User>
     fun getUserPokemons(id: Int): Observable<List<Pokemon>>
+    fun sendGift(giftParameters: GiftParameters): Observable<Message>
 }

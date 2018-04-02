@@ -1,6 +1,7 @@
 package fr.iut.iem.pokecard.data.manager.impl
 
 import android.util.Log
+import com.google.gson.annotations.SerializedName
 import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Message
@@ -59,6 +60,10 @@ class PokeAPIManagerImpl : PokeAPIManager {
         return pokeAPIEndPoint.getUserPokemons(id)
     }
 
+    override fun sendGift(giftParameters: GiftParameters): Observable<Message> {
+        return pokeAPIEndPoint.sendGift(giftParameters)
+    }
+
     private fun initHttpClient(): OkHttpClient {
         var logging = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.i("pokeAPI", message) })
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -100,5 +105,15 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
         @GET("user/{userID}/pokemons")
         fun getUserPokemons(@Path("userID") id: Int): Observable<List<Pokemon>>
+
+        @POST("gift")
+        fun sendGift(@Body giftParameters: GiftParameters): Observable<Message>
     }
 }
+
+
+data class GiftParameters (
+        @field:SerializedName("current_user") val currentUserId: Int,
+        @field:SerializedName("user_id") val id: Int,
+        @field:SerializedName("pokemon_id") val pokemonId: Int
+        )
