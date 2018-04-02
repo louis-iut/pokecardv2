@@ -15,6 +15,10 @@ class SignUpActivity : AppCompatActivity(), SignUpNavigatorListener {
         setContentView(R.layout.activity_sign_up)
 
         navigator = SignUpNavigator(this, supportFragmentManager)
+        navigator.launchLaunchFragment()
+    }
+
+    override fun launchSignUpFragment() {
         navigator.launchSignUpFragment()
     }
 
