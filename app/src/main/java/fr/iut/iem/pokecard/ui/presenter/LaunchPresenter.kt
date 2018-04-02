@@ -19,7 +19,7 @@ class LaunchPresenter(private var view: LaunchView) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onNext = { view.onLaunchSucces() },
+                        onNext = { view.onLaunchSuccess() },
                         onError = { view.onLaunchError() }
                 )
     }

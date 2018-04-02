@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v4.app.FragmentManager
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.ui.activity.MainActivity
+import fr.iut.iem.pokecard.ui.fragment.LaunchFragment
 import fr.iut.iem.pokecard.ui.fragment.SignUpFragment
 import fr.iut.iem.pokecard.ui.fragment.UsersFragment
 import fr.iut.iem.pokecard.ui.fragment.WelcomeFragment
@@ -14,10 +15,20 @@ import fr.iut.iem.pokecard.ui.fragment.WelcomeFragment
  */
 class SignUpNavigator(private val context: Context, private val fragmentManager: FragmentManager) {
 
-    private val SIGN_UP_FRAGMENT = 0
-    private val WELCOME_FRAGMENT = 1
+    private val LAUNCH_FRAGMENT = 0
+    private val SIGN_UP_FRAGMENT = 1
+    private val WELCOME_FRAGMENT = 2
 
     private var currentFragment = 0
+
+    fun launchLaunchFragment() {
+        fragmentManager.beginTransaction()
+                .addToBackStack("launch")
+                .replace(R.id.activity_sign_up_frame_layout, LaunchFragment.newInstance())
+                .commit()
+
+        currentFragment = LAUNCH_FRAGMENT
+    }
 
     fun launchSignUpFragment() {
         fragmentManager.beginTransaction()
