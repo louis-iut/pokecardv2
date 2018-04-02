@@ -1,10 +1,9 @@
 package fr.iut.iem.pokecard.data.manager.impl
 
 import android.util.Log
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
+import fr.iut.iem.pokecard.data.model.Message
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.PokemonDetails
 import fr.iut.iem.pokecard.data.model.User
@@ -22,7 +21,6 @@ import java.util.concurrent.TimeUnit
  */
 class PokeAPIManagerImpl : PokeAPIManager {
 
-
     private var pokeAPIEndPoint: PokeAPIEndPoint
     private var retrofit: Retrofit
     private var baseUrl: String = BuildConfig.POKE_BASE_URL
@@ -31,6 +29,11 @@ class PokeAPIManagerImpl : PokeAPIManager {
         retrofit = initRetrofit(initHttpClient())
         pokeAPIEndPoint = retrofit.create(PokeAPIEndPoint::class.java)
     }
+
+    override fun ping(): Observable<Message> {
+        return pokeAPIEndPoint.ping()
+    }
+
 
     override fun signUp(user: User): Observable<User> {
         return pokeAPIEndPoint.signUp(user)
@@ -77,6 +80,9 @@ class PokeAPIManagerImpl : PokeAPIManager {
     }
 
     interface PokeAPIEndPoint {
+        @GET("ping")
+        fun ping(): Observable<Message>
+
         @POST("sign/up")
         fun signUp(@Body user: User): Observable<User>
 

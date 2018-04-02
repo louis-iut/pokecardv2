@@ -7,6 +7,7 @@ import fr.iut.iem.pokecard.data.manager.impl.CacheManagerImpl
 import fr.iut.iem.pokecard.data.manager.impl.PokeAPIManagerImpl
 import fr.iut.iem.pokecard.data.repository.PokemonRepository
 import fr.iut.iem.pokecard.data.repository.UserRepository
+import fr.iut.iem.pokecard.data.repository.UtilsRepository
 
 /**
  * Created by louis on 27/01/2018.
@@ -22,8 +23,10 @@ class PokeCardApp : Application() {
 
     private lateinit var pokeAPIManager: PokeAPIManager
     private lateinit var cacheManager: CacheManager
+
     private lateinit var pokemonRepository: PokemonRepository
     private lateinit var userRepository: UserRepository
+    private lateinit var utilsRepository: UtilsRepository
 
 
     override fun onCreate() {
@@ -43,10 +46,7 @@ class PokeCardApp : Application() {
     private fun initRepositories() {
         pokemonRepository = PokemonRepository(pokeAPIManager, cacheManager)
         userRepository = UserRepository(pokeAPIManager, cacheManager)
-    }
-
-    fun getCacheManager() : CacheManager {
-        return cacheManager
+        utilsRepository = UtilsRepository(pokeAPIManager)
     }
 
     fun getPokemonRepository() : PokemonRepository {
@@ -55,5 +55,9 @@ class PokeCardApp : Application() {
 
     fun getUserRepository() : UserRepository {
         return userRepository
+    }
+
+    fun getUtilsRepository(): UtilsRepository {
+        return utilsRepository
     }
 }
