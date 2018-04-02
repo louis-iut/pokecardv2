@@ -14,8 +14,6 @@ class CacheManagerImpl : CacheManager {
     private var users = listOf<User>()
     private var currentUser : User? = null
 
-
-
     override fun getCurrentUser(): User? {
         return currentUser
     }
