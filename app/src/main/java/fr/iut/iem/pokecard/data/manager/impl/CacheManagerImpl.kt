@@ -57,7 +57,6 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun setPokemons(pokemons: List<Pokemon>) {
-       // pokemons.add
         this.pokemons = pokemons.associateBy({it.id}, {it})
     }
 
@@ -66,7 +65,6 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun setUserPokemons(pokemons: List<Pokemon>) {
-        this.userPokemons += pokemons
-       // this.userPokemons = this.pokemons.distinct().sortedBy { pokemon: Pokemon -> pokemon.id }
+        this.userPokemons = pokemons
     }
 }

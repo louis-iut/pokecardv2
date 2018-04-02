@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.adapter.PokedexAdapter
+import fr.iut.iem.pokecard.ui.listener.MainNavigatorListener
 import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.GiftPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
@@ -55,7 +57,14 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
     }
 
     override fun updateUI(pokemons: List<Pokemon>) {
+        this.view!!.fragment_gift_loader.visibility = View.GONE
         adapter.setPokedex(pokemons)
+    }
+
+    override fun onGiftSucceed() {
+        this.view!!.fragment_gift_loader.visibility = View.GONE
+        Toast.makeText(context, "Votre Pokémon a bien été envoyé !", Toast.LENGTH_SHORT).show()
+        (this.activity as MainNavigatorListener).launchUserPokedexView()
     }
 
     private fun initRecyclerView(view : View) {
@@ -70,7 +79,8 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
     }
 
     override fun onClickOnPokemon(id: Int) {
-        Log.d("TAG", "ON CLICK ON POKEMON")
+        this.view!!.fragment_gift_loader.visibility = View.VISIBLE
+        presenter.sendGift(this.arguments!![USER_ID_KEY] as Int, id)
     }
 
 }

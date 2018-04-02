@@ -79,15 +79,21 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
         previousTabs.removeAt(index) //remove previous tabs which was added in the list because of onTabUnselected
     }
 
-    override fun launchPokedexView() {
-        navigator.launchPokedexView()
-    }
-
     override fun launchUserPokedexView() {
+        val tab = activity_main_tab_layout.getTabAt(0)
+        tab!!.select()
         navigator.launchUserPokedexView()
     }
 
+    override fun launchPokedexView() {
+        val tab = activity_main_tab_layout.getTabAt(1)
+        tab!!.select()
+        navigator.launchPokedexView()
+    }
+
     override fun launchUsersView() {
+        val tab = activity_main_tab_layout.getTabAt(2)
+        tab!!.select()
         navigator.launchUsersView()
     }
 

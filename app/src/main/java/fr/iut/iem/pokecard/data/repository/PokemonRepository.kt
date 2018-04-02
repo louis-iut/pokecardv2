@@ -61,7 +61,7 @@ class PokemonRepository(
         return  Observable.fromArray(pokemons)
     }
 
-    private fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
+    fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
         return pokeAPIManager.getUserPokemons(id).doOnNext { t -> setUserPokemonOnCache(t)}
     }
 

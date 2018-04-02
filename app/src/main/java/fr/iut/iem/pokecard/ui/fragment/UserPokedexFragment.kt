@@ -48,4 +48,9 @@ class UserPokedexFragment : Fragment(), PokedexView {
         view.fragment_user_pokemons_list.layoutManager = LinearLayoutManager(context)
         view.fragment_user_pokemons_list.adapter = adapter
     }
+
+    override fun onGiftSucceed() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

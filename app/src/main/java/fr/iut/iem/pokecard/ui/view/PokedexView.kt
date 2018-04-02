@@ -7,4 +7,5 @@ import fr.iut.iem.pokecard.data.model.Pokemon
  */
 interface PokedexView {
     fun updateUI(pokemons : List<Pokemon>)
+    fun onGiftSucceed()
 }

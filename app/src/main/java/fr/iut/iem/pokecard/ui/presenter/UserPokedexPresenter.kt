@@ -21,7 +21,7 @@ class UserPokedexPresenter(private var pokedexView: PokedexView) {
         userRepository.getCurrentUser()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
+                .subscribeBy (
                         onNext = {
                             if (it.id != null) {
                                 getUserPokemons(it.id)
