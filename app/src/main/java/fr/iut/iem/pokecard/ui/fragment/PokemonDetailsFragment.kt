@@ -53,6 +53,5 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         view.fragment_details_name.text = pokemon.name.capitalize()
         view.fragment_details_description.text = pokemonDetails.description
         Picasso.with(context).load(pokemon.image).into(view.fragment_details_image)
-
     }
 }

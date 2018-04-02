@@ -3,6 +3,7 @@ package fr.iut.iem.pokecard.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_pokedex.view.*
  * Created by louis on 27/01/2018.
  */
 class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
-
     companion object {
         fun newInstance() : PokedexFragment {
             return PokedexFragment()
@@ -54,4 +54,9 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
     override fun onClickOnPokemon(id : Int) {
         (this.activity as MainNavigatorListener).launchPokemonDetails(id)
     }
+
+    override fun onGiftSucceed() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

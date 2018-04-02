@@ -3,7 +3,9 @@ package fr.iut.iem.pokecard.ui.activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import fr.iut.iem.pokecard.R
+import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.listener.MainNavigatorListener
 import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.listener.UserItemListener
@@ -28,8 +30,8 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
         TODO("not implemented")
     }
 
-    override fun onClickOnGiftButton() {
-        navigator.launchGiftView()
+    override fun onClickOnGiftButton(user: User) {
+        launchGiftView(user)
     }
 
     override fun onClickOnPokemon(id: Int) {
@@ -77,20 +79,26 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
         previousTabs.removeAt(index) //remove previous tabs which was added in the list because of onTabUnselected
     }
 
-    override fun launchPokedexView() {
-        navigator.launchPokedexView()
-    }
-
     override fun launchUserPokedexView() {
+        val tab = activity_main_tab_layout.getTabAt(0)
+        tab!!.select()
         navigator.launchUserPokedexView()
     }
 
+    override fun launchPokedexView() {
+        val tab = activity_main_tab_layout.getTabAt(1)
+        tab!!.select()
+        navigator.launchPokedexView()
+    }
+
     override fun launchUsersView() {
+        val tab = activity_main_tab_layout.getTabAt(2)
+        tab!!.select()
         navigator.launchUsersView()
     }
 
-    override fun launchGiftView() {
-        navigator.launchGiftView()
+    override fun launchGiftView(user: User) {
+        navigator.launchGiftView(user)
     }
 
     override fun launchPokemonDetails(pokemonID: Int) {

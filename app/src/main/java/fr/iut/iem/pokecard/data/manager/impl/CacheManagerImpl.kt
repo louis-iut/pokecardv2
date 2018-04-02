@@ -14,8 +14,6 @@ class CacheManagerImpl : CacheManager {
     private var users = listOf<User>()
     private var currentUser : User? = null
 
-
-
     override fun getCurrentUser(): User? {
         return currentUser
     }
@@ -59,7 +57,6 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun setPokemons(pokemons: List<Pokemon>) {
-       // pokemons.add
         this.pokemons = pokemons.associateBy({it.id}, {it})
     }
 
@@ -68,7 +65,6 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun setUserPokemons(pokemons: List<Pokemon>) {
-        this.userPokemons += pokemons
-       // this.userPokemons = this.pokemons.distinct().sortedBy { pokemon: Pokemon -> pokemon.id }
+        this.userPokemons = pokemons
     }
 }

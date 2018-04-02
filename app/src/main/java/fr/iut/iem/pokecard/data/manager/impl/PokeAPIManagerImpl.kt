@@ -1,10 +1,10 @@
 package fr.iut.iem.pokecard.data.manager.impl
 
 import android.util.Log
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import fr.iut.iem.pokecard.BuildConfig
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
+import fr.iut.iem.pokecard.data.model.Message
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.PokemonDetails
 import fr.iut.iem.pokecard.data.model.User
@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit
  */
 class PokeAPIManagerImpl : PokeAPIManager {
 
-
     private var pokeAPIEndPoint: PokeAPIEndPoint
     private var retrofit: Retrofit
     private var baseUrl: String = BuildConfig.POKE_BASE_URL
@@ -31,6 +30,11 @@ class PokeAPIManagerImpl : PokeAPIManager {
         retrofit = initRetrofit(initHttpClient())
         pokeAPIEndPoint = retrofit.create(PokeAPIEndPoint::class.java)
     }
+
+    override fun ping(): Observable<Message> {
+        return pokeAPIEndPoint.ping()
+    }
+
 
     override fun signUp(user: User): Observable<User> {
         return pokeAPIEndPoint.signUp(user)
@@ -56,6 +60,10 @@ class PokeAPIManagerImpl : PokeAPIManager {
         return pokeAPIEndPoint.getUserPokemons(id)
     }
 
+    override fun sendGift(giftParameters: GiftParameters): Observable<Message> {
+        return pokeAPIEndPoint.sendGift(giftParameters)
+    }
+
     private fun initHttpClient(): OkHttpClient {
         var logging = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.i("pokeAPI", message) })
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -77,6 +85,9 @@ class PokeAPIManagerImpl : PokeAPIManager {
     }
 
     interface PokeAPIEndPoint {
+        @GET("ping")
+        fun ping(): Observable<Message>
+
         @POST("sign/up")
         fun signUp(@Body user: User): Observable<User>
 
@@ -94,5 +105,15 @@ class PokeAPIManagerImpl : PokeAPIManager {
 
         @GET("user/{userID}/pokemons")
         fun getUserPokemons(@Path("userID") id: Int): Observable<List<Pokemon>>
+
+        @POST("gift")
+        fun sendGift(@Body giftParameters: GiftParameters): Observable<Message>
     }
 }
+
+
+data class GiftParameters (
+        @field:SerializedName("current_user") val currentUserId: Int,
+        @field:SerializedName("user_id") val id: Int,
+        @field:SerializedName("pokemon_id") val pokemonId: Int
+        )

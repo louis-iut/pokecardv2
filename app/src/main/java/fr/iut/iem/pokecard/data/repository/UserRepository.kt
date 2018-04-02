@@ -2,6 +2,8 @@ package fr.iut.iem.pokecard.data.repository
 
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
+import fr.iut.iem.pokecard.data.manager.impl.GiftParameters
+import fr.iut.iem.pokecard.data.model.Message
 import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
 import io.reactivex.functions.Action
@@ -14,6 +16,10 @@ class UserRepository(
         private val pokeAPIManager: PokeAPIManager,
         private val cacheManager: CacheManager
 ) {
+
+    fun sendGift(giftParameters: GiftParameters): Observable<Message> {
+        return pokeAPIManager.sendGift(giftParameters)
+    }
 
     fun signUp(user: User): Observable<User> {
         return pokeAPIManager.signUp(user).doOnNext({ setCurrentUserOnCache(it) })

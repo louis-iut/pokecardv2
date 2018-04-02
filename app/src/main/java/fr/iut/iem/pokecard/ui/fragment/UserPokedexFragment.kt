@@ -3,6 +3,7 @@ package fr.iut.iem.pokecard.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,4 +48,9 @@ class UserPokedexFragment : Fragment(), PokedexView {
         view.fragment_user_pokemons_list.layoutManager = LinearLayoutManager(context)
         view.fragment_user_pokemons_list.adapter = adapter
     }
+
+    override fun onGiftSucceed() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

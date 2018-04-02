@@ -47,8 +47,8 @@ class UserListAdapter(private val userItemListener: UserItemListener) : Recycler
 
         fun bind(user: User) {
             view.item_user_pseudo.text = user.pseudo
-            view.setOnClickListener { userItemListener.onClickOnUserItem() }
-            view.item_user_gift_button.setOnClickListener { userItemListener.onClickOnUserItem() }
+            view.setOnClickListener { userItemListener.onClickOnGiftButton(user) }
+            view.item_user_gift_button.setOnClickListener { userItemListener.onClickOnGiftButton(user) }
         }
     }
 }

@@ -1,5 +1,6 @@
 package fr.iut.iem.pokecard.data.repository
 
+import android.util.Log
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
@@ -50,13 +51,17 @@ class PokemonRepository(
     }
 
     private fun getUserPokemonFromCache(): Observable<List<Pokemon>> {
+
         val pokemons = cacheManager.getUserPokemons()
-                ?: return Observable.error(Throwable("user pokedex empty"))
+
+        if (pokemons == null || pokemons.isEmpty()) {
+            return Observable.error(Throwable("user pokedex empty"))
+        }
 
         return  Observable.fromArray(pokemons)
     }
 
-    private fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
+    fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
         return pokeAPIManager.getUserPokemons(id).doOnNext { t -> setUserPokemonOnCache(t)}
     }
 

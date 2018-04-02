@@ -39,6 +39,9 @@ class UsersFragment : Fragment(), UsersView {
     }
 
     override fun updateUI(users: List<User>) {
+
+        this.view!!.fragment_users_loader.visibility = View.GONE
+
         adapter.setUserList(users)
     }
 
