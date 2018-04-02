@@ -13,6 +13,7 @@ import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
 import fr.iut.iem.pokecard.ui.presenter.LaunchPresenter
 import fr.iut.iem.pokecard.ui.view.LaunchView
 import kotlinx.android.synthetic.main.fragment_launch.*
+import kotlinx.android.synthetic.main.fragment_launch.view.*
 
 class LaunchFragment : Fragment(), LaunchView {
 
@@ -25,22 +26,33 @@ class LaunchFragment : Fragment(), LaunchView {
     private lateinit var presenter: LaunchPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        inflater.inflate(R.layout.fragment_launch, container, false)
+        return inflater.inflate(R.layout.fragment_launch, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         presenter = LaunchPresenter(this)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        view.fragment_launch_retry_button.setOnClickListener {
+            setVisibility(GONE)
+            fragment_launch_spinner.visibility = VISIBLE
+            presenter.ping()
+        }
     }
 
     override fun onLaunchError() {
         print("error on connect to api")
-       // fragment_launch_spinner.visibility = GONE
-       // fragment_launch_error_text.visibility = VISIBLE
-        Toast.makeText(context, "NOP", Toast.LENGTH_LONG).show()
+        setVisibility(VISIBLE)
     }
 
     override fun onLaunchSuccess() {
         print("success")
-       // fragment_launch_spinner.visibility = GONE
+        setVisibility(GONE)
         (this.activity as SignUpNavigatorListener).launchSignUpFragment()
     }
 
+    private fun setVisibility(visibility: Int) {
+        fragment_launch_spinner.visibility = GONE
+        fragment_launch_error_text.visibility = visibility
+        fragment_launch_retry_button.visibility = visibility
+    }
 }

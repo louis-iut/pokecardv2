@@ -14,7 +14,7 @@ class LaunchPresenter(private var view: LaunchView) {
         ping()
     }
 
-    private fun ping() {
+    fun ping() {
         utilsRepository.ping()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
