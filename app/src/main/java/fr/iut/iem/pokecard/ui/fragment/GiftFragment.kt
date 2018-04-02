@@ -17,6 +17,7 @@ import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.GiftPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_gift.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.*
 
 /**
  * Created by louis on 31/01/2018.
@@ -58,6 +59,7 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
 
     override fun updateUI(pokemons: List<Pokemon>) {
         this.view!!.fragment_gift_loader.visibility = View.GONE
+        poke_toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
         adapter.setPokedex(pokemons)
     }
 

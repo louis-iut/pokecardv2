@@ -16,6 +16,7 @@ import fr.iut.iem.pokecard.ui.view.PokemonDetailsView
 import kotlinx.android.synthetic.main.fragment_pokedex.view.*
 import kotlinx.android.synthetic.main.fragment_pokemon_details.view.*
 import kotlinx.android.synthetic.main.item_pokemon.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.*
 
 class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
     companion object {
@@ -49,7 +50,7 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         val view = this.view!!
 
         view.fragment_details_loader.visibility = View.GONE
-
+        poke_toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
         view.fragment_details_name.text = pokemon.name.capitalize()
         view.fragment_details_description.text = pokemonDetails.description
         Picasso.with(context).load(pokemon.image).into(view.fragment_details_image)

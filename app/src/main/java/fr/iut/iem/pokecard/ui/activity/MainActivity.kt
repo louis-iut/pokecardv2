@@ -3,7 +3,6 @@ package fr.iut.iem.pokecard.ui.activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.listener.MainNavigatorListener
@@ -15,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener, MainNavigatorListener {
     private lateinit var navigator: MainNavigator
     private var previousTabs: MutableList<Int> = arrayListOf()
+    private var currentTab: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +35,15 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
     }
 
     override fun onClickOnPokemon(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.launchPokemonDetails(id)
     }
 
     override fun onBackPressed() {
+        if (currentTab == activity_main_tab_layout.selectedTabPosition) {
+            super.onBackPressed()
+            return
+        }
+
         if (previousTabs.isEmpty()) {
             finishAffinity()
         } else {
@@ -57,12 +62,15 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
+                        currentTab = 0
                         navigator.launchUserPokedexView()
                     }
                     1 -> {
+                        currentTab = 1
                         navigator.launchPokedexView()
                     }
                     2 -> {
+                        currentTab = 2
                         navigator.launchUsersView()
                     }
                 }

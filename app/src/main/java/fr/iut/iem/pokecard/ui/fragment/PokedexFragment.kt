@@ -41,6 +41,7 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
     }
 
     override fun updateUI(pokemons: List<Pokemon>) {
+        this.view!!.fragment_pokedex_loader.visibility = View.GONE
         adapter.setPokedex(pokemons)
     }
 
@@ -48,7 +49,10 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
         adapter = PokedexAdapter(this)
         view.fragment_pokedex_list.layoutManager = LinearLayoutManager(context)
         view.fragment_pokedex_list.adapter = adapter
-        view.fragment_pokedex_load_more_button.setOnClickListener({ presenter.getPokemons() })
+        view.fragment_pokedex_load_more_button.setOnClickListener({
+            view.fragment_pokedex_loader.visibility = View.VISIBLE
+            presenter.getPokemons()
+        })
     }
 
     override fun onClickOnPokemon(id : Int) {
@@ -56,7 +60,6 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
     }
 
     override fun onGiftSucceed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
