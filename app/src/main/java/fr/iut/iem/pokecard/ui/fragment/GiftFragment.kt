@@ -3,7 +3,6 @@ package fr.iut.iem.pokecard.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,7 @@ import fr.iut.iem.pokecard.ui.listener.MainNavigatorListener
 import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.GiftPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
-import kotlinx.android.synthetic.main.fragment_gift.view.*
+import kotlinx.android.synthetic.main.fragment_gift.*
 
 /**
  * Created by louis on 31/01/2018.
@@ -44,43 +43,46 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
     private lateinit var adapter : PokedexAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_gift, container, false)
-
-        initUI(view)
-
-        initRecyclerView(view)
-
         presenter = GiftPresenter(this)
-        presenter.getCurrentUser()
 
-        return view
+        return inflater.inflate(R.layout.fragment_gift, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
+        initRecyclerView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.getCurrentUser()
     }
 
     override fun updateUI(pokemons: List<Pokemon>) {
-        this.view!!.fragment_gift_loader.visibility = View.GONE
+        fragment_gift_loader.visibility = View.GONE
         adapter.setPokedex(pokemons)
     }
 
     override fun onGiftSucceed() {
-        this.view!!.fragment_gift_loader.visibility = View.GONE
+       fragment_gift_loader.visibility = View.GONE
         Toast.makeText(context, "Votre Pokémon a bien été envoyé !", Toast.LENGTH_SHORT).show()
         (this.activity as MainNavigatorListener).launchUserPokedexView()
     }
 
-    private fun initRecyclerView(view : View) {
+    private fun initRecyclerView() {
         adapter = PokedexAdapter(this)
-        view.fragment_gift_list.layoutManager = LinearLayoutManager(context)
-        view.fragment_gift_list.adapter = adapter
+        fragment_gift_list.layoutManager = LinearLayoutManager(context)
+        fragment_gift_list.adapter = adapter
     }
 
-    private fun initUI(view: View) {
+    private fun initUI() {
         val userName = this.arguments!![USER_NAME_KEY] as String
-        view.fragment_gift_informations_text.text = "Quel Pokemon voulez-vous envoyer à " + userName + " ?"
+       fragment_gift_informations_text.text = "Quel Pokemon voulez-vous envoyer à $userName ?"
     }
 
     override fun onClickOnPokemon(id: Int) {
-        this.view!!.fragment_gift_loader.visibility = View.VISIBLE
+        fragment_gift_loader.visibility = View.VISIBLE
         presenter.sendGift(this.arguments!![USER_ID_KEY] as Int, id)
     }
-
 }

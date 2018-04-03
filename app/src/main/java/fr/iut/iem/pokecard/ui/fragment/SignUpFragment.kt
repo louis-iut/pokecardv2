@@ -14,7 +14,7 @@ import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
 import fr.iut.iem.pokecard.ui.presenter.SignUpPresenter
 import fr.iut.iem.pokecard.ui.view.SignUpView
-import kotlinx.android.synthetic.main.fragment_sign_up.view.*
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 /**
  * Created by louis on 28/01/2018.
@@ -31,12 +31,18 @@ class SignUpFragment : Fragment(), SignUpView {
     private lateinit var callbackManager: CallbackManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
-
         presenter = SignUpPresenter(context, this, activity as SignUpNavigatorListener)
-        initFacebookConnexion(view)
 
-        return view
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initFacebookConnexion()
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -44,11 +50,11 @@ class SignUpFragment : Fragment(), SignUpView {
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun initFacebookConnexion(view: View) {
+    private fun initFacebookConnexion() {
         callbackManager = CallbackManager.Factory.create()
-        view.fragment_sign_up_login_button.setReadPermissions("email")
-        view.fragment_sign_up_login_button.fragment = this
-        view.fragment_sign_up_login_button.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+        fragment_sign_up_login_button.setReadPermissions("email")
+        fragment_sign_up_login_button.fragment = this
+        fragment_sign_up_login_button.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
                 presenter.login(result.accessToken.userId)
             }

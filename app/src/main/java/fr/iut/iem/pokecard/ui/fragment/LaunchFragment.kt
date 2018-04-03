@@ -26,17 +26,23 @@ class LaunchFragment : Fragment(), LaunchView {
     private lateinit var presenter: LaunchPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        presenter = LaunchPresenter(this)
         return inflater.inflate(R.layout.fragment_launch, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = LaunchPresenter(this)
+
         view.fragment_launch_retry_button.setOnClickListener {
             setVisibility(GONE)
             fragment_launch_spinner.visibility = VISIBLE
             presenter.ping()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.ping()
     }
 
     override fun onLaunchError() {
