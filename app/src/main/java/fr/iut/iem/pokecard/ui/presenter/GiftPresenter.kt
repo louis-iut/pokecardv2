@@ -47,12 +47,13 @@ class GiftPresenter (private var pokedexView: PokedexView) {
                                     .subscribeOn(Schedulers.newThread())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribeBy(
-                                            onNext = { pokedexView.onGiftSucceed() },
-                                            onError = { Log.e("TEST","NO", it)}
+                                            onNext = { pokedexView.onGiftSuccess() },
+                                            onError = { Log.e("TEST","NO", it)},
+                                            onComplete = { pokedexView.onGiftComplete() }
                                     )
                             },
                         onError = {
-                            Log.d("TEST", it.message)
+                            pokedexView.onGiftComplete()
                         }
                 )
     }

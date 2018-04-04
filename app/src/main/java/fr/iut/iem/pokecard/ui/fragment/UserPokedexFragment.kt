@@ -13,6 +13,8 @@ import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.UserPokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_user_pokemons.*
+import kotlinx.android.synthetic.main.fragment_user_pokemons.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.*
 
 /**
  * Created by louis on 28/01/2018.
@@ -45,6 +47,7 @@ class UserPokedexFragment : Fragment(), PokedexView {
     }
 
     override fun updateUI(pokemons: List<Pokemon>) {
+        this.view!!.fragment_user_loader.visibility = View.GONE
         adapter.setPokedex(pokemons)
     }
 
@@ -54,8 +57,9 @@ class UserPokedexFragment : Fragment(), PokedexView {
         fragment_user_pokemons_list.adapter = adapter
     }
 
-    override fun onGiftSucceed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onGiftSuccess() {
     }
 
+    override fun onGiftComplete() {
+    }
 }

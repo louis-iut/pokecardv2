@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
@@ -55,7 +56,9 @@ class SignUpFragment : Fragment(), SignUpView {
         fragment_sign_up_login_button.setReadPermissions("email")
         fragment_sign_up_login_button.fragment = this
         fragment_sign_up_login_button.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+
             override fun onSuccess(result: LoginResult) {
+                fragment_sign_up_login_button.visibility = View.GONE
                 presenter.login(result.accessToken.userId)
             }
 

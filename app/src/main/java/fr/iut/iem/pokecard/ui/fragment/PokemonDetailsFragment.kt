@@ -11,7 +11,12 @@ import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.PokemonDetails
 import fr.iut.iem.pokecard.ui.presenter.PokemonDetailsPresenter
 import fr.iut.iem.pokecard.ui.view.PokemonDetailsView
+import kotlinx.android.synthetic.main.fragment_pokedex.view.*
+import kotlinx.android.synthetic.main.fragment_pokemon_details.view.*
+import kotlinx.android.synthetic.main.item_pokemon.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.*
 import kotlinx.android.synthetic.main.fragment_pokemon_details.*
+import kotlinx.android.synthetic.main.poke_toolbar.view.*
 
 class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
     companion object {
@@ -37,7 +42,13 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         presenter = PokemonDetailsPresenter(context, this.arguments!![POKEMON_ID_KEY] as Int, this)
         presenter.getPokemonDetails()
 
+        initUI(view)
+
         return view
+    }
+
+    private fun initUI(view: View) {
+        view.poke_toolbar.title = resources.getString(R.string.fragment_pokemon_detail_toolbar_title)
     }
 
     override fun updateUI(pokemon: Pokemon, pokemonDetails: PokemonDetails) {
@@ -46,5 +57,7 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         fragment_details_name.text = pokemon.name.capitalize()
         fragment_details_description.text = pokemonDetails.description
         Picasso.with(context).load(pokemon.image).into(fragment_details_image)
+
+        this.view!!.poke_toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
     }
 }

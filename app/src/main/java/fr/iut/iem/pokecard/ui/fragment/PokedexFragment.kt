@@ -3,6 +3,8 @@ package fr.iut.iem.pokecard.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +16,14 @@ import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.PokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_pokedex.*
+import kotlinx.android.synthetic.main.fragment_pokedex.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.view.*
 
 /**
  * Created by louis on 27/01/2018.
  */
 class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
+
     companion object {
         fun newInstance() : PokedexFragment {
             return PokedexFragment()
@@ -45,6 +50,7 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
     }
 
     override fun updateUI(pokemons: List<Pokemon>) {
+        this.view!!.fragment_pokedex_loader.visibility = View.GONE
         adapter.setPokedex(pokemons)
     }
 
@@ -59,8 +65,9 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
         (this.activity as MainNavigatorListener).launchPokemonDetails(id)
     }
 
-    override fun onGiftSucceed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onGiftSuccess() {
     }
 
+    override fun onGiftComplete() {
+    }
 }
