@@ -1,5 +1,3 @@
-
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -21,6 +19,10 @@ import kotlinx.android.synthetic.main.fragment_gift.view.*
  * Created by louis on 31/01/2018.
  */
 class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
+
+    override fun onGiftComplete() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     companion object {
 
@@ -49,6 +51,15 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
 
         initRecyclerView(view)
 
+        return view
+    }
+
+    override fun onGiftSuccess() {
+        this.view!!.fragment_gift_loader.visibility = View.GONE
+        Toast.makeText(context, "Votre Pokémon a bien été envoyé !", Toast.LENGTH_SHORT).show()
+        (this.activity as MainNavigatorListener).launchUserPokedexView()
+    }
+
     override fun onStart() {
         super.onStart()
         presenter.getCurrentUser()
@@ -59,19 +70,13 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
         adapter.setPokedex(pokemons)
     }
 
-    override fun onGiftSucceed() {
-        this.view!!.fragment_gift_loader.visibility = View.GONE
-        Toast.makeText(context, "Votre Pokémon a bien été envoyé !", Toast.LENGTH_SHORT).show()
-        (this.activity as MainNavigatorListener).launchUserPokedexView()
-    }
-
-    private fun initRecyclerView() {
+    private fun initRecyclerView(view: View) {
         adapter = PokedexAdapter(this)
         view.fragment_gift_list.layoutManager = LinearLayoutManager(context)
         view.fragment_gift_list.adapter = adapter
     }
 
-    private fun initUI() {
+    private fun initUI(view: View) {
         val userName = this.arguments!![USER_NAME_KEY] as String
         view.fragment_gift_informations_text.text = "Quel Pokemon voulez-vous envoyer à " + userName + " ?"
     }
@@ -82,6 +87,7 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
     }
 }
 
+/*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -181,4 +187,4 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
         fragment_gift_loader.visibility = View.VISIBLE
         presenter.sendGift(this.arguments!![USER_ID_KEY] as Int, id)
     }
-}
+}*/

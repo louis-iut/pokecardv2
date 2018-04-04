@@ -14,6 +14,7 @@ import fr.iut.iem.pokecard.ui.listener.PokedexItemListener
 import fr.iut.iem.pokecard.ui.presenter.PokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_pokedex.*
+import kotlinx.android.synthetic.main.fragment_pokedex.view.*
 
 /**
  * Created by louis on 27/01/2018.
