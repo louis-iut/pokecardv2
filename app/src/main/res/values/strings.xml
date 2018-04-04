@@ -8,4 +8,6 @@
 
     <string name="ping_error_text">Connexion avec le serveur impossible.\nVeuillez vérifier votre connexion internet svp !</string>
     <string name="retry_button">Réessayer</string>
+
+    <string name="fragment_pokemon_detail_toolbar_title">Détails du Pokemon</string>
 </resources>

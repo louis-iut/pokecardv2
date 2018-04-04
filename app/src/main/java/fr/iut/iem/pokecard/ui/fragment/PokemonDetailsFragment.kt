@@ -42,7 +42,13 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         presenter = PokemonDetailsPresenter(context, this.arguments!![POKEMON_ID_KEY] as Int, this)
         presenter.getPokemonDetails()
 
+        initUI(view)
+
         return view
+    }
+
+    private fun initUI(view: View) {
+        view.poke_toolbar.title = resources.getString(R.string.fragment_pokemon_detail_toolbar_title)
     }
 
     override fun updateUI(pokemon: Pokemon, pokemonDetails: PokemonDetails) {
@@ -53,6 +59,5 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         Picasso.with(context).load(pokemon.image).into(fragment_details_image)
 
         this.view!!.poke_toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
-
     }
 }
