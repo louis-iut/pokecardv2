@@ -79,7 +79,11 @@ class PokemonRepository(
     private fun getUserPokemonsFromDB(): Observable<List<Pokemon>> {
         val pokemons = dbManager.getUserPokemons()
 
-        return Observable.just(pokemons)
+        if (pokemons == null || pokemons.isEmpty()) {
+            return Observable.error(Throwable("user pokedex empty"))
+        }
+
+        return  Observable.fromArray(pokemons)
     }
 
     private fun setUserPokemonsOnDB(pokemons: List<Pokemon>) {

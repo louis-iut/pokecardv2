@@ -9,6 +9,14 @@ import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.User
 
 class DBManagerImpl : DBManager {
+    override fun getPokemons(): List<Pokemon>? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setPokemons(pokemons: List<Pokemon>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getCurrentUser(): User? {
         return select.from(User::class.java).limit(1).querySingle()
     }
@@ -18,7 +26,6 @@ class DBManagerImpl : DBManager {
             user.save()
         }
     }
-
 
     override fun getUserPokemons(): List<Pokemon>? {
         return select.from(Pokemon::class.java).queryList()
