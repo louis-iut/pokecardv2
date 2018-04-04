@@ -8,6 +8,6 @@ import com.google.gson.annotations.SerializedName
  */
 data class User(
         @field:SerializedName("id") val id: Int?,
-        @field:SerializedName("facebook_id") val facebooId: String,
+        @field:SerializedName("facebook_id") val facebookId: String,
         @field:SerializedName("pseudo") val pseudo: String?) {
 }
