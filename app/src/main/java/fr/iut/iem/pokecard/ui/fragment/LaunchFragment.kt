@@ -42,6 +42,7 @@ class LaunchFragment : Fragment(), LaunchView {
 
     override fun onStart() {
         super.onStart()
+        presenter.signUp()
         presenter.ping()
     }
 
