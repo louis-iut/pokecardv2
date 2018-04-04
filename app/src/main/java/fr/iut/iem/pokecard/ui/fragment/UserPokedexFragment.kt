@@ -51,7 +51,9 @@ class UserPokedexFragment : Fragment(), PokedexView {
         view.fragment_user_pokemons_list.adapter = adapter
     }
 
-    override fun onGiftSucceed() {
+    override fun onGiftSuccess() {
     }
 
+    override fun onGiftComplete() {
+    }
 }

@@ -63,7 +63,11 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
         adapter.setPokedex(pokemons)
     }
 
-    override fun onGiftSucceed() {
+    override fun onGiftComplete() {
+        fragment_gift_list.isClickable = true
+    }
+
+    override fun onGiftSuccess() {
         fragment_gift_loader.visibility = View.GONE
         Toast.makeText(context, "Votre Pokémon a bien été envoyé !", Toast.LENGTH_SHORT).show()
         (this.activity as MainNavigatorListener).launchUserPokedexView()
@@ -73,7 +77,7 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
         adapter = PokedexAdapter(this)
         fragment_gift_list.layoutManager = LinearLayoutManager(context)
         fragment_gift_list.adapter = adapter
-        fragment_gift_list
+        fragment_gift_list.isClickable = true
     }
 
     private fun initUI() {
@@ -83,8 +87,11 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
     }
 
     override fun onClickOnPokemon(id: Int) {
-        fragment_gift_loader.visibility = View.VISIBLE
-        presenter.sendGift(this.arguments!![USER_ID_KEY] as Int, id)
+        if (fragment_gift_list.isClickable) {
+            fragment_gift_loader.visibility = View.VISIBLE
+            presenter.sendGift(this.arguments!![USER_ID_KEY] as Int, id)
+            fragment_gift_list.isClickable = false
+        }
     }
 
 }

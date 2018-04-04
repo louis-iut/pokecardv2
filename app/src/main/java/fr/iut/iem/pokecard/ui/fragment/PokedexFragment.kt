@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_pokedex.view.*
  * Created by louis on 27/01/2018.
  */
 class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
+
     companion object {
         fun newInstance() : PokedexFragment {
             return PokedexFragment()
@@ -59,7 +60,9 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
         (this.activity as MainNavigatorListener).launchPokemonDetails(id)
     }
 
-    override fun onGiftSucceed() {
+    override fun onGiftSuccess() {
     }
 
+    override fun onGiftComplete() {
+    }
 }
