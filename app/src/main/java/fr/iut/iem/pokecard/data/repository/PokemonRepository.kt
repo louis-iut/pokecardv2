@@ -89,6 +89,8 @@ class PokemonRepository(
             return Observable.error(Throwable("user pokedex empty"))
         }
 
+        cacheManager.setUserPokemons(pokemons)
+
         return Observable.fromArray(pokemons)
     }
 

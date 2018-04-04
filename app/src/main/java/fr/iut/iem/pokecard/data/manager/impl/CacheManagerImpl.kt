@@ -31,7 +31,22 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun getPokemon(id: Int): Pokemon? {
-        return pokemons[id]
+        var pokemon = pokemons[id]
+        if (pokemon == null) {
+            pokemon = findUserPokemonById(id)
+        }
+
+        return pokemon
+    }
+
+    private fun findUserPokemonById(id: Int):Pokemon? {
+        for (pokemon in userPokemons) {
+            if (pokemon.id == id) {
+                return pokemon
+            }
+        }
+
+        return null
     }
 
     override fun getPokemons(page: Int, offset: Int): List<Pokemon>? {
