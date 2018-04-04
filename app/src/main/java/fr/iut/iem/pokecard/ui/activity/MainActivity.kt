@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(), UserItemListener, PokedexItemListener,
     }
 
     override fun onClickOnUserItem() {
-        TODO("not implemented")
     }
 
     override fun onClickOnGiftButton(user: User) {
