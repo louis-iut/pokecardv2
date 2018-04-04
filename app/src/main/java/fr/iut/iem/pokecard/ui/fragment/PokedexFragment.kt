@@ -58,7 +58,12 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
         adapter = PokedexAdapter(this)
         fragment_pokedex_list.layoutManager = LinearLayoutManager(context)
         fragment_pokedex_list.adapter = adapter
-        fragment_pokedex_load_more_button.setOnClickListener({ presenter.getPokemons() })
+        fragment_pokedex_load_more_button.setOnClickListener({ getPokemons() })
+    }
+
+    private fun getPokemons() {
+        this.view!!.fragment_pokedex_loader.visibility = View.VISIBLE
+        presenter.getPokemons()
     }
 
     override fun onClickOnPokemon(id : Int) {
