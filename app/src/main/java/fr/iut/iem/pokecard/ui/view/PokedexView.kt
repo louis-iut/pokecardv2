@@ -6,7 +6,7 @@ import fr.iut.iem.pokecard.data.model.Pokemon
  * Created by louis on 28/01/2018.
  */
 interface PokedexView {
-    fun updateUI(pokemons : List<Pokemon>)
+    fun updateUI(pokemons: List<Pokemon>)
     fun onGiftSuccess()
     fun onGiftComplete()
 }

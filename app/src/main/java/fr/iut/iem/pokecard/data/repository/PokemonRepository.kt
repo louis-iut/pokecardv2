@@ -22,12 +22,14 @@ class PokemonRepository(
 
     fun getPokemons(page: Int, offset: Int): Observable<List<Pokemon>> {
         return getPokemonsFromCache(page, offset)
-                .onErrorResumeNext(Function { getPokemonsFromAPI(page, offset) })
+                .onErrorResumeNext(Function {
+                    getPokemonsFromAPI(page, offset)
+                })
     }
 
     fun getPokemon(id: Int): Observable<Pokemon> {
         val pokemon = cacheManager.getPokemon(id)
-                        ?: return Observable.error(Throwable("pokedex empty"))
+                ?: return Observable.error(Throwable("pokedex empty"))
 
         return Observable.just(pokemon)
     }
@@ -40,7 +42,10 @@ class PokemonRepository(
 
     private fun getPokemonsFromCache(page: Int, offset: Int): Observable<List<Pokemon>> {
         val pokemons = cacheManager.getPokemons(page, offset)
-                ?: return Observable.error(Throwable("pokedex empty"))
+
+        if (pokemons == null || pokemons.isEmpty()) {
+            return Observable.error(Throwable("pokedex empty"))
+        }
 
         return Observable.fromArray(pokemons)
     }
@@ -48,7 +53,7 @@ class PokemonRepository(
     private fun getPokemonsFromAPI(page: Int, offset: Int): Observable<List<Pokemon>> {
         return pokeAPIManager.getPokemons(page, offset).doOnNext {
             setPokemonsOnCache(it)
-        }
+        }.map { cacheManager.getPokemons(page, offset) }
     }
 
     private fun setPokemonsOnCache(pokemons: List<Pokemon>) {
@@ -63,13 +68,14 @@ class PokemonRepository(
             return Observable.error(Throwable("user pokedex empty"))
         }
 
-        return  Observable.fromArray(pokemons)
+        return Observable.fromArray(pokemons)
     }
 
     fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
         return pokeAPIManager.getUserPokemons(id).doOnNext {
             setUserPokemonsOnDB(it)
-            setUserPokemonOnCache(it)}
+            setUserPokemonOnCache(it)
+        }
     }
 
     private fun setUserPokemonOnCache(pokemons: List<Pokemon>) {
@@ -83,7 +89,7 @@ class PokemonRepository(
             return Observable.error(Throwable("user pokedex empty"))
         }
 
-        return  Observable.fromArray(pokemons)
+        return Observable.fromArray(pokemons)
     }
 
     private fun setUserPokemonsOnDB(pokemons: List<Pokemon>) {

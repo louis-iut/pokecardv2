@@ -8,9 +8,6 @@ interface DBManager {
     fun getCurrentUser(): User?
     fun setCurrentUser(user: User)
 
-    fun getPokemons(): List<Pokemon>?
-    fun setPokemons(pokemons: List<Pokemon>)
-
     fun getUserPokemons(): List<Pokemon>?
     fun setUserPokemons(pokemons: List<Pokemon>)
 }

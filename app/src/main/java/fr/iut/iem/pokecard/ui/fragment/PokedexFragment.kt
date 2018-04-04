@@ -32,6 +32,7 @@ class PokedexFragment : Fragment(), PokedexView, PokedexItemListener {
 
     private lateinit var presenter : PokedexPresenter
     private lateinit var adapter : PokedexAdapter
+    private var pokedex = listOf<Pokemon>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         presenter = PokedexPresenter(context, this)

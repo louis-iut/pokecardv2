@@ -41,19 +41,12 @@ class CacheManagerImpl : CacheManager {
         if (max > pokemons.size-1) {
             return null
         }
-        var list = listOf<Pokemon>()
 
-        for (i in min..max) {
-            if(pokemons.containsKey(i)) {
-            list += pokemons[i]!!
-            }
-        }
-
-        return list.sortedBy { pokemon: Pokemon -> pokemon.id }
+        return pokemons.values.sortedBy { pokemon: Pokemon -> pokemon.id }
     }
 
     override fun setPokemons(pokemons: List<Pokemon>) {
-        this.pokemons = pokemons.associateBy({it.id}, {it})
+        this.pokemons = (this.pokemons.values + pokemons).distinctBy { it.id }.associateBy({it.id}, {it})
     }
 
     override fun getUserPokemons(): List<Pokemon>? {
@@ -61,6 +54,6 @@ class CacheManagerImpl : CacheManager {
     }
 
     override fun setUserPokemons(pokemons: List<Pokemon>) {
-        this.userPokemons = pokemons
+        this.userPokemons = pokemons.distinctBy { it.id }
     }
 }

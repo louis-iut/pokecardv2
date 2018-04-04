@@ -35,8 +35,7 @@ class PokedexAdapter (
     }
 
     fun setPokedex(pokedex : List<Pokemon>) {
-        this.pokedex += pokedex
-        this.pokedex.distinctBy { it.id }
+        this.pokedex = pokedex
         notifyDataSetChanged()
     }
 
