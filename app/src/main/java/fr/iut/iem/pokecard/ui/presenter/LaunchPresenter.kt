@@ -10,11 +10,7 @@ class LaunchPresenter(private var view: LaunchView) {
 
     private var utilsRepository = PokeCardApp.application().getUtilsRepository()
 
-    init {
-        ping()
-    }
-
-    private fun ping() {
+    fun ping() {
         utilsRepository.ping()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

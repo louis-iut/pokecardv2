@@ -10,7 +10,6 @@ import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
 import fr.iut.iem.pokecard.ui.presenter.WelcomePresenter
 import kotlinx.android.synthetic.main.fragment_welcome.*
-import kotlinx.android.synthetic.main.fragment_welcome.view.*
 
 /**
  * Created by louis on 28/01/2018.
@@ -19,7 +18,7 @@ class WelcomeFragment : Fragment() {
 
     companion object {
         private val KEY_FACEBOOK_ID = "key_facebook_id"
-        fun newInstance(facebookId : String) : WelcomeFragment {
+        fun newInstance(facebookId: String): WelcomeFragment {
             val fragment = WelcomeFragment()
             val bundle = Bundle()
             bundle.putString(KEY_FACEBOOK_ID, facebookId)
@@ -29,30 +28,35 @@ class WelcomeFragment : Fragment() {
         }
     }
 
-    private lateinit var presenter : WelcomePresenter
-    private lateinit var facebookId : String
+    private lateinit var presenter: WelcomePresenter
+    private lateinit var facebookId: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_welcome, container, false)
+        getArgs()
+        presenter = WelcomePresenter(context, activity as SignUpNavigatorListener)
 
+        return inflater.inflate(R.layout.fragment_welcome, container, false)
+    }
+
+    private fun getArgs() {
         val arguments = arguments
 
         if (arguments != null && arguments.containsKey(KEY_FACEBOOK_ID)) {
             facebookId = arguments.getString(KEY_FACEBOOK_ID)
         }
-
-        initUI(view)
-        presenter = WelcomePresenter(context, activity as SignUpNavigatorListener)
-
-        return view
     }
 
-    private fun initUI(view: View) {
-        view.fragment_welcome_validate_button.setOnClickListener({ onClickOnValidateButton(view) })
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
     }
 
-    private fun onClickOnValidateButton(view: View) {
-            val pseudo = view.fragment_welcome_pseudo_edit_text.text.toString()
-            presenter.signUp(User(null, facebookId, pseudo))
+    private fun initUI() {
+        fragment_welcome_validate_button.setOnClickListener({ onClickOnValidateButton() })
+    }
+
+    private fun onClickOnValidateButton() {
+        val pseudo = fragment_welcome_pseudo_edit_text.text.toString()
+        presenter.signUp(User(null, facebookId, pseudo))
     }
 }

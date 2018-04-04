@@ -4,6 +4,7 @@ buildscript {
     ext.retrofit_version = '2.3.0'
     ext.appcompat_version = '26.1.0'
     ext.kotlin_version = '1.2.30'
+    ext.dbflow_version = '4.2.4'
     repositories {
         google()
         jcenter()
@@ -21,6 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://www.jitpack.io" }
     }
 }
 

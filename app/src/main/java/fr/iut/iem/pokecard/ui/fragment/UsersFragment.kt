@@ -12,7 +12,7 @@ import fr.iut.iem.pokecard.ui.adapter.UserListAdapter
 import fr.iut.iem.pokecard.ui.listener.UserItemListener
 import fr.iut.iem.pokecard.ui.presenter.UsersPresenter
 import fr.iut.iem.pokecard.ui.view.UsersView
-import kotlinx.android.synthetic.main.fragment_users.view.*
+import kotlinx.android.synthetic.main.fragment_users.*
 
 /**
  * Created by louis on 28/01/2018.
@@ -26,28 +26,34 @@ class UsersFragment : Fragment(), UsersView {
     }
 
     private lateinit var adapter : UserListAdapter
+    private lateinit var presenter: UsersPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_users, container, false)
+        presenter = UsersPresenter(this)
 
-        initRecyclerView(view)
+        return inflater.inflate(R.layout.fragment_users, container, false)
+    }
 
-        var presenter = UsersPresenter(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+    }
+
+    override fun onStart() {
+        super.onStart()
         presenter.getUsers()
-
-        return view
     }
 
     override fun updateUI(users: List<User>) {
 
-        this.view!!.fragment_users_loader.visibility = View.GONE
+        fragment_users_loader.visibility = View.GONE
 
         adapter.setUserList(users)
     }
 
-    private fun initRecyclerView(view: View) {
+    private fun initRecyclerView() {
         adapter = UserListAdapter(activity as UserItemListener)
-        view.fragment_users_list.layoutManager = LinearLayoutManager(context)
-        view.fragment_users_list.adapter = adapter
+        fragment_users_list.layoutManager = LinearLayoutManager(context)
+        fragment_users_list.adapter = adapter
     }
 }

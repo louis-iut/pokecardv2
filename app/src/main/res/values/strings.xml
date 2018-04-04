@@ -5,4 +5,7 @@
 
     <string name="fragment_gift_toolbar_title">Offrir un Pokémon</string>
     <string name="fragment_gift_information">Quel Pokemon voulez-vous envoyer à %1$s ?</string>
+
+    <string name="ping_error_text">Connexion avec le serveur impossible.\nVeuillez vérifier votre connexion internet svp !</string>
+    <string name="retry_button">Réessayer</string>
 </resources>

@@ -14,9 +14,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by QuentinGenevois on 01/04/2018.
  */
-class GiftPresenter (
-        private var pokedexView: PokedexView
-) {
+class GiftPresenter (private var pokedexView: PokedexView) {
 
     private var userRepository : UserRepository = PokeCardApp.application().getUserRepository()
     private var pokemonRepository : PokemonRepository = PokeCardApp.application().getPokemonRepository()
