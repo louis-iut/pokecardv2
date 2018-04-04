@@ -1,6 +1,7 @@
 package fr.iut.iem.pokecard.data.repository
 
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
+import fr.iut.iem.pokecard.data.manager.`interface`.DBManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.manager.impl.GiftParameters
 import fr.iut.iem.pokecard.data.model.Message
@@ -14,7 +15,8 @@ import io.reactivex.functions.Function
  */
 class UserRepository(
         private val pokeAPIManager: PokeAPIManager,
-        private val cacheManager: CacheManager
+        private val cacheManager: CacheManager,
+        private val dbManager: DBManager
 ) {
 
     fun sendGift(giftParameters: GiftParameters): Observable<Message> {
@@ -22,11 +24,17 @@ class UserRepository(
     }
 
     fun signUp(user: User): Observable<User> {
-        return pokeAPIManager.signUp(user).doOnNext({ setCurrentUserOnCache(it) })
+        return pokeAPIManager.signUp(user).doOnNext({
+            setCurrentUserOnDB(it)
+            setCurrentUserOnCache(it)
+        })
     }
 
     fun login(user: User): Observable<User> {
-        return pokeAPIManager.login(user).doOnNext({ setCurrentUserOnCache(it) })
+        return pokeAPIManager.login(user).doOnNext({
+            setCurrentUserOnDB(it)
+            setCurrentUserOnCache(it)
+        })
     }
 
     fun getUsers(): Observable<List<User>> {
@@ -34,10 +42,24 @@ class UserRepository(
     }
 
     fun getCurrentUser(): Observable<User> {
+        return getCurrentUserFromCache().onErrorResumeNext(Function { getCurrentUserFromDB() })
+    }
+
+    private fun getCurrentUserFromCache(): Observable<User> {
         var currentUser: User? = cacheManager.getCurrentUser() ?:
-                return Observable.error(Throwable("no current user"))
+        return Observable.error(Throwable("no current user"))
 
         return Observable.just(currentUser)
+    }
+
+    private fun getCurrentUserFromDB(): Observable<User> {
+        val user = dbManager.getCurrentUser()
+
+        return Observable.just(user)
+    }
+
+    private fun setCurrentUserOnDB(user: User) {
+        dbManager.setCurrentUser(user)
     }
 
     private fun getUsersFromCache(): Observable<List<User>> {

@@ -2,6 +2,7 @@ package fr.iut.iem.pokecard.data.repository
 
 import android.util.Log
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
+import fr.iut.iem.pokecard.data.manager.`interface`.DBManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
 import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.PokemonDetails
@@ -13,7 +14,8 @@ import io.reactivex.functions.Function
  */
 class PokemonRepository(
         private val pokeAPIManager: PokeAPIManager,
-        private val cacheManager: CacheManager
+        private val cacheManager: CacheManager,
+        private val dbManager: DBManager
 ) {
     fun getPokemonDetails(id: Int): Observable<PokemonDetails> {
         return pokeAPIManager.getPokemonDetailsByID(id)
