@@ -15,6 +15,7 @@ import fr.iut.iem.pokecard.ui.presenter.GiftPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_gift.*
 import kotlinx.android.synthetic.main.fragment_gift.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.view.*
 
 /**
  * Created by louis on 31/01/2018.
@@ -70,6 +71,7 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
     override fun updateUI(pokemons: List<Pokemon>) {
         this.view!!.fragment_gift_loader.visibility = View.GONE
         adapter.setPokedex(pokemons)
+        this.view!!.poke_toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
     }
 
     private fun initRecyclerView(view: View) {
@@ -80,8 +82,9 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
 
     private fun initUI(view: View) {
         val userName = this.arguments!![USER_NAME_KEY] as String
-        view.fragment_gift_informations_text.text = "Quel Pokemon voulez-vous envoyer à " + userName + " ?"
+        view.fragment_gift_informations_text.text = String.format(resources.getString(R.string.fragment_gift_information), userName)
         view.fragment_gift_list.isClickable = true
+        view.poke_toolbar.title = resources.getString(R.string.fragment_gift_toolbar_title)
     }
 
     override fun onClickOnPokemon(id: Int) {

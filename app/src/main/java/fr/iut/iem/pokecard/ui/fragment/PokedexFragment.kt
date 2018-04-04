@@ -3,6 +3,8 @@ package fr.iut.iem.pokecard.ui.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import fr.iut.iem.pokecard.ui.presenter.PokedexPresenter
 import fr.iut.iem.pokecard.ui.view.PokedexView
 import kotlinx.android.synthetic.main.fragment_pokedex.*
 import kotlinx.android.synthetic.main.fragment_pokedex.view.*
+import kotlinx.android.synthetic.main.poke_toolbar.view.*
 
 /**
  * Created by louis on 27/01/2018.

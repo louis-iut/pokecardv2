@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_pokemon_details.view.*
 import kotlinx.android.synthetic.main.item_pokemon.view.*
 import kotlinx.android.synthetic.main.poke_toolbar.*
 import kotlinx.android.synthetic.main.fragment_pokemon_details.*
+import kotlinx.android.synthetic.main.poke_toolbar.view.*
 
 class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
     companion object {
@@ -50,5 +51,8 @@ class PokemonDetailsFragment : Fragment(), PokemonDetailsView {
         fragment_details_name.text = pokemon.name.capitalize()
         fragment_details_description.text = pokemonDetails.description
         Picasso.with(context).load(pokemon.image).into(fragment_details_image)
+
+        this.view!!.poke_toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
+
     }
 }
