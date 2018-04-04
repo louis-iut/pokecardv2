@@ -56,6 +56,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun onClickOnValidateButton() {
+        fragment_welcome_loader.visibility = View.VISIBLE
         val pseudo = fragment_welcome_pseudo_edit_text.text.toString()
         presenter.signUp(User(0, facebookId, pseudo))
     }
