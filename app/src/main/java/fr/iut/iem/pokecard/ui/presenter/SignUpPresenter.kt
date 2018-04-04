@@ -22,7 +22,7 @@ class SignUpPresenter(
     private var userRepository : UserRepository = PokeCardApp.application().getUserRepository()
 
     fun login(facebookId : String) {
-        userRepository.login(User(null, facebookId, null))
+        userRepository.login(User(0, facebookId, null))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

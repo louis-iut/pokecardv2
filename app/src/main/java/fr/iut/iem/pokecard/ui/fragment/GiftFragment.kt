@@ -30,7 +30,7 @@ class GiftFragment : Fragment(), PokedexItemListener, PokedexView {
         fun newInstance(user: User) : GiftFragment {
             val args = Bundle()
             args.putString(GiftFragment.USER_NAME_KEY, user.pseudo)
-            args.putInt(GiftFragment.USER_ID_KEY, user.id!!)
+            args.putInt(GiftFragment.USER_ID_KEY, user.id)
 
             val fragment = GiftFragment()
             fragment.arguments = args

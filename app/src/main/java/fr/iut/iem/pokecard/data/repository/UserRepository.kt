@@ -7,7 +7,6 @@ import fr.iut.iem.pokecard.data.manager.impl.GiftParameters
 import fr.iut.iem.pokecard.data.model.Message
 import fr.iut.iem.pokecard.data.model.User
 import io.reactivex.Observable
-import io.reactivex.functions.Action
 import io.reactivex.functions.Function
 
 /**
@@ -31,10 +30,10 @@ class UserRepository(
     }
 
     fun login(user: User): Observable<User> {
-        return pokeAPIManager.login(user).doOnNext({
+        return pokeAPIManager.login(user).doOnNext {
             setCurrentUserOnDB(it)
             setCurrentUserOnCache(it)
-        })
+        }
     }
 
     fun getUsers(): Observable<List<User>> {

@@ -34,10 +34,6 @@ class CacheManagerImpl : CacheManager {
         return pokemons[id]
     }
 
-    override fun setPokemon(pokemon: Pokemon) {
-
-    }
-
     override fun getPokemons(page: Int, offset: Int): List<Pokemon>? {
         val min = page*offset + 1
         val max = (page+1)*offset-1

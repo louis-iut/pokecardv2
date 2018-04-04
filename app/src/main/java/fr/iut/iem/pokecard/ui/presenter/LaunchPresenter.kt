@@ -1,6 +1,7 @@
 package fr.iut.iem.pokecard.ui.presenter
 
 import fr.iut.iem.pokecard.PokeCardApp
+import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.view.LaunchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
@@ -26,8 +27,18 @@ class LaunchPresenter(private var view: LaunchView) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onNext = {print("okookokookko")},
-                        onError = {print("nonnnononononnoon")}
+                        onNext = { login(it) },
+                        onError = { view.onLoginError() }
+                )
+    }
+
+    fun login(user: User) {
+        userRepository.login(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onNext = { view.onLoginSuccess() },
+                        onError = { view.onLoginError() }
                 )
     }
 }

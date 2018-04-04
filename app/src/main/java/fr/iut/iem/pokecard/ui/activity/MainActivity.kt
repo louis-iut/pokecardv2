@@ -3,7 +3,6 @@ package fr.iut.iem.pokecard.ui.activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import fr.iut.iem.pokecard.R
 import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.listener.MainNavigatorListener

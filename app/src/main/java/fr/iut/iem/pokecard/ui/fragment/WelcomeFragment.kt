@@ -57,6 +57,6 @@ class WelcomeFragment : Fragment() {
 
     private fun onClickOnValidateButton() {
         val pseudo = fragment_welcome_pseudo_edit_text.text.toString()
-        presenter.signUp(User(null, facebookId, pseudo))
+        presenter.signUp(User(0, facebookId, pseudo))
     }
 }

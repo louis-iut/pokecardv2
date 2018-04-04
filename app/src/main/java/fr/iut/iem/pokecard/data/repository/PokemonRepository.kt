@@ -1,6 +1,5 @@
 package fr.iut.iem.pokecard.data.repository
 
-import android.util.Log
 import fr.iut.iem.pokecard.data.manager.`interface`.CacheManager
 import fr.iut.iem.pokecard.data.manager.`interface`.DBManager
 import fr.iut.iem.pokecard.data.manager.`interface`.PokeAPIManager
@@ -34,7 +33,9 @@ class PokemonRepository(
     }
 
     fun getUserPokemons(id: Int): Observable<List<Pokemon>> {
-        return getUserPokemonFromCache().onErrorResumeNext(Function { getUserPokemonsFromApi(id) })
+        return getUserPokemonFromCache()
+                .onErrorResumeNext(Function { getUserPokemonsFromDB() })
+                .onErrorResumeNext(Function { getUserPokemonsFromApi(id) })
     }
 
     private fun getPokemonsFromCache(page: Int, offset: Int): Observable<List<Pokemon>> {
@@ -45,7 +46,9 @@ class PokemonRepository(
     }
 
     private fun getPokemonsFromAPI(page: Int, offset: Int): Observable<List<Pokemon>> {
-        return pokeAPIManager.getPokemons(page, offset).doOnNext { t -> setPokemonsOnCache(t) }
+        return pokeAPIManager.getPokemons(page, offset).doOnNext {
+            setPokemonsOnCache(it)
+        }
     }
 
     private fun setPokemonsOnCache(pokemons: List<Pokemon>) {
@@ -64,10 +67,22 @@ class PokemonRepository(
     }
 
     fun getUserPokemonsFromApi(id: Int): Observable<List<Pokemon>> {
-        return pokeAPIManager.getUserPokemons(id).doOnNext { t -> setUserPokemonOnCache(t)}
+        return pokeAPIManager.getUserPokemons(id).doOnNext {
+            setUserPokemonsOnDB(it)
+            setUserPokemonOnCache(it)}
     }
 
     private fun setUserPokemonOnCache(pokemons: List<Pokemon>) {
         cacheManager.setUserPokemons(pokemons)
+    }
+
+    private fun getUserPokemonsFromDB(): Observable<List<Pokemon>> {
+        val pokemons = dbManager.getUserPokemons()
+
+        return Observable.just(pokemons)
+    }
+
+    private fun setUserPokemonsOnDB(pokemons: List<Pokemon>) {
+        dbManager.setUserPokemons(pokemons)
     }
 }

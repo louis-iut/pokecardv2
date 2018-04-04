@@ -6,7 +6,6 @@ import fr.iut.iem.pokecard.PokeCardApp
 import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.data.repository.UserRepository
 import fr.iut.iem.pokecard.ui.listener.SignUpNavigatorListener
-import fr.iut.iem.pokecard.ui.view.SignUpView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers

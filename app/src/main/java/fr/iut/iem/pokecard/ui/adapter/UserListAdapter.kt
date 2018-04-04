@@ -4,12 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import fr.iut.iem.pokecard.R
-import fr.iut.iem.pokecard.data.model.Pokemon
 import fr.iut.iem.pokecard.data.model.User
 import fr.iut.iem.pokecard.ui.listener.UserItemListener
-import kotlinx.android.synthetic.main.item_pokemon.view.*
 import kotlinx.android.synthetic.main.item_user.view.*
 
 /**

@@ -53,6 +53,14 @@ class LaunchFragment : Fragment(), LaunchView {
 
     override fun onLaunchSuccess() {
         print("success")
+    }
+
+    override fun onLoginSuccess() {
+        setVisibility(GONE)
+        (this.activity as SignUpNavigatorListener).launchMainActivity()
+    }
+
+    override fun onLoginError() {
         setVisibility(GONE)
         (this.activity as SignUpNavigatorListener).launchSignUpFragment()
     }
